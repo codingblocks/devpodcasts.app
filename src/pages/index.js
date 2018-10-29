@@ -1,16 +1,42 @@
 import React from 'react'
-import { Link } from 'gatsby'
-
+import { graphql } from 'gatsby'
 import Layout from '../components/layout'
 
-const IndexPage = () => (
-  <Layout>
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: '300px', marginBottom: '1.45rem' }} />
-    <Link to='/page-2/'>Go to page 2</Link>
-  </Layout>
-)
+export const query = graphql`
+  query {
+    allPodcastShow(sort:{fields: [episodeCount], order: DESC}) {
+      edges {
+        node {
+          episodeCount
+          podcastTitle
+        }
+      }
+    }    
+  }
+`
 
-export default IndexPage
+export default ({ data }) => {
+  console.log(data)
+  return (
+    <Layout>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Show</th>
+              <th>Episode Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.allPodcastShow.edges.map(({ node }, index) => (
+              <tr key={index}>
+                <td>{node.podcastTitle}</td>
+                <td>{node.episodeCount}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </Layout>
+  )
+}

@@ -11,9 +11,9 @@ exports.sourceNodes = (
   const processShow = show => {
     const normalizedShow = {
       podcastTitle: show.value,
-      episodeCount: show.count
+      episodeCount: show.count,
+      episodes: show.episodes
     }
-
     return Object.assign({}, normalizedShow, {
       id: createNodeId(
         `podcast-show-${normalizedShow.podcastTitle}-${normalizedShow.episodeCount}`
@@ -28,7 +28,7 @@ exports.sourceNodes = (
     })
   }
 
-  return fetch(configOptions.url, {
+  return fetch(configOptions.allShowsUrl, {
     cache: 'no-cache',
     headers: {
       'api-key': configOptions.key
@@ -38,9 +38,21 @@ exports.sourceNodes = (
     .then(data => {
       const shows = data['@search.facets'].podcastTitle
       shows.forEach(show => {
-        const showData = processShow(show)
-        console.log(showData)
-        createNode(showData)
+        // TODO would be better to use real feed
+        const episodeUrl = `${configOptions.individualUrl}&query=${encodeURI(show.value)}`
+        fetch(episodeUrl, {
+          cache: 'no-cache',
+          headers: {
+            'api-key': configOptions.key
+          }
+        })
+          .then(r => r.json())
+          .then(episodeData => {
+            show.episodes = episodeData.value
+            const showData = processShow(show)
+            createNode(showData)
+            console.log(`Created node for ${show.value}`)
+          })
       })
     })
 }
