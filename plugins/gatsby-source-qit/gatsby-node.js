@@ -1,6 +1,6 @@
 const fetch = require('node-fetch')
 
-exports.sourceNodes = (
+exports.sourceNodes = async (
   { actions, createNodeId, createContentDigest },
   configOptions
 ) => {
@@ -28,31 +28,29 @@ exports.sourceNodes = (
     })
   }
 
-  return fetch(configOptions.allShowsUrl, {
-    cache: 'no-cache',
+  const searchHeaders = {
     headers: {
       'api-key': configOptions.key
     }
-  })
-    .then(r => r.json())
-    .then(data => {
-      const shows = data['@search.facets'].podcastTitle
-      shows.forEach(show => {
-        // TODO would be better to use real feed
-        const episodeUrl = `${configOptions.individualUrl}&query=${encodeURI(show.value)}`
-        fetch(episodeUrl, {
-          cache: 'no-cache',
-          headers: {
-            'api-key': configOptions.key
-          }
-        })
-          .then(r => r.json())
-          .then(episodeData => {
-            show.episodes = episodeData.value
-            const showData = processShow(show)
-            createNode(showData)
-            console.log(`Created node for ${show.value}`)
-          })
-      })
-    })
+  }
+  const showResponse = await fetch(
+    configOptions.allShowsUrl,
+    searchHeaders
+  ).then(r => r.json())
+
+  const shows = showResponse['@search.facets'].podcastTitle
+  const processShows = async () => {
+    for (const show of shows) {
+      // TODO would be better to use real feed
+      const episodeUrl = `${configOptions.individualUrl}&query=${encodeURI(show.value)}`
+      const episodeData = await fetch(episodeUrl, searchHeaders).then(r =>
+        r.json()
+      )
+      show.episodes = episodeData.value
+      const showData = processShow(show)
+      createNode(showData)
+      console.log(`Created node for ${show.value}`)
+    }
+  }
+  await processShows()
 }
