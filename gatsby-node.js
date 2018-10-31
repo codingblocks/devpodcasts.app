@@ -1,7 +1,13 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.org/docs/node-apis/
- */
+const path = require(`path`)
 
-// You can delete this file if you're not using it
+exports.onCreateNode = ({ node, actions }) => {
+  if (node.internal.type === `PodcastShow`) {
+    console.log(`slug: ${node.slug}`)
+
+    actions.createPage({
+      path: `/shows/${node.slug}/`,
+      component: path.resolve(`./src/templates/podcast-show.js`),
+      context: node
+    })
+  }
+}

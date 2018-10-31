@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql } from 'gatsby'
+import { graphql, Link } from 'gatsby'
 import Layout from '../components/layout'
 
 export const query = graphql`
@@ -9,6 +9,7 @@ export const query = graphql`
         node {
           episodeCount
           podcastTitle
+          slug
         }
       }
     }    
@@ -30,7 +31,9 @@ export default ({ data }) => {
           <tbody>
             {data.allPodcastShow.edges.map(({ node }, index) => (
               <tr key={index}>
-                <td>{node.podcastTitle}</td>
+                <td>
+                  <Link to={`/shows/${node.slug}`}>{node.podcastTitle}</Link>
+                </td>
                 <td>{node.episodeCount}</td>
               </tr>
             ))}
