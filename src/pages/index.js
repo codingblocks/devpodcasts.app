@@ -17,10 +17,20 @@ export const query = graphql`
 `
 
 export default ({ data }) => {
-  console.log(data)
   return (
     <Layout>
       <div>
+        <div className='todo'>
+          <p>TODO:</p>
+          <ul>
+            <li>Pie chart for episodes</li>
+            <li>Pie chart for tags</li>
+            <li>Histogram for recent releases</li>
+            <li>Show X most recent episodes</li>
+            <li>Link to QIT searches</li>
+          </ul>
+        </div>
+
         <table>
           <thead>
             <tr>

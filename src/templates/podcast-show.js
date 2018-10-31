@@ -3,12 +3,39 @@ import { Link } from 'gatsby'
 
 import Layout from '../components/layout'
 
-const SecondPage = () => (
-  <Layout>
-    <h1>Hi from the template</h1>
-    <p>{JSON.stringify(this)}</p>
-    <Link to='/'>Go back to the homepage</Link>
-  </Layout>
-)
+export default ({ pageContext }) => {
+  return (
+    <Layout>
+      <h1 class='podcast-title'>{pageContext.podcastTitle}</h1>
+      <p className='small'>{pageContext.episodeCount} Episodes</p>
 
-export default SecondPage
+      <div className='todo'>
+        <p>TODO:</p>
+        <ul>
+          <li>Image</li>
+          <li>Description</li>
+          <li>Links (website, feed, podchaser etc)</li>
+          <li>Tags</li>
+        </ul>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Episode</th>
+            <th>Publish date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {pageContext.episodes.map(e => (
+            <tr>
+              <td>{e.episodeTitle}</td>
+              <td>{e.published}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <Link to='/'>back</Link>
+    </Layout>
+  )
+}

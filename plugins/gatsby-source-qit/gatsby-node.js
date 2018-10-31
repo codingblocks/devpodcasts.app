@@ -44,7 +44,8 @@ exports.sourceNodes = async (
   const processShows = async () => {
     for (const show of shows) {
       // TODO would be better to use real feed
-      const episodeUrl = `${configOptions.individualUrl}&query=${encodeURI(show.value)}`
+      const episodeUrl = `${configOptions.individualUrl}&search=${encodeURI(show.value)}`
+      console.log(episodeUrl)
       const episodeData = await fetch(episodeUrl, searchHeaders).then(r =>
         r.json()
       )
