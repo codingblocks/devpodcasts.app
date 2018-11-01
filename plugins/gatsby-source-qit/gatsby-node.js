@@ -1,4 +1,20 @@
 const fetch = require('node-fetch')
+const parsePodcastFeed = require('node-podcast-parser')
+
+async function getFeed (feedUrl) {
+  console.log(` fetching ${feedUrl}`)
+  const body = await (await fetch(feedUrl)).text()
+  return new Promise(function (resolve, reject) {
+    parsePodcastFeed(body, (err, results) => {
+      if (err) {
+        console.error(err)
+        reject(err)
+      } else {
+        resolve(results)
+      }
+    })
+  })
+}
 
 exports.sourceNodes = async (
   { actions, createNodeId, createContentDigest },
@@ -9,12 +25,14 @@ exports.sourceNodes = async (
   delete configOptions.plugins
 
   const processShow = show => {
-    const slug = encodeURI(show.value.trim().replace(/ +/g, '-')).toLowerCase() // Used for linking
+    const slug = encodeURI(show.value.trim().replace(/[^\w]+/g, '-')).toLowerCase() // Used for linking
     const normalizedShow = {
       podcastTitle: show.value,
       slug: slug,
       episodeCount: show.count,
-      episodes: show.episodes
+      episodes: show.episodes,
+      feed: show.feed,
+      lastEpisodeDate: show.lastEpisodeDate
     }
     return Object.assign({}, normalizedShow, {
       id: createNodeId(
@@ -50,9 +68,16 @@ exports.sourceNodes = async (
         r.json()
       )
       show.episodes = episodeData.value
+      const feedUrl = show.episodes[0].feed
+      show.feed = {
+        url: feedUrl,
+        data: await getFeed(feedUrl)
+      }
+      show.lastEpisodeDate = new Date(show.feed.data.episodes[0].published)
+
       const showData = processShow(show)
       createNode(showData)
-      console.log(`Created node for ${show.value}`)
+      console.log(` created node for ${show.value}`)
     }
   }
   await processShows()

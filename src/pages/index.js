@@ -10,6 +10,7 @@ export const query = graphql`
           episodeCount
           podcastTitle
           slug
+          lastEpisodeDate
         }
       }
     }    
@@ -17,33 +18,30 @@ export const query = graphql`
 `
 
 export default ({ data }) => {
+  // All this should be done in graphql...
+  const shows = data.allPodcastShow.edges
+    .map(s => Object.assign({}, s.node))
+  shows.forEach(s => { s.lastEpisodeDate = new Date(s.lastEpisodeDate) })
+  shows.sort((a, b) => a.lastEpisodeDate - b.lastEpisodeDate).reverse()
+
   return (
     <Layout>
       <div>
-        <div className='todo'>
-          <p>TODO:</p>
-          <ul>
-            <li>Pie chart for episodes</li>
-            <li>Pie chart for tags</li>
-            <li>Histogram for recent releases</li>
-            <li>Show X most recent episodes</li>
-            <li>Link to QIT searches</li>
-          </ul>
-        </div>
-
         <table>
           <thead>
             <tr>
               <th>Show</th>
+              <th>Last Episode</th>
               <th>Episode Count</th>
             </tr>
           </thead>
           <tbody>
-            {data.allPodcastShow.edges.map(({ node }, index) => (
-              <tr key={index}>
+            {shows.map(node => (
+              <tr key={node.podcastTitle}>
                 <td>
                   <Link to={`/shows/${node.slug}`}>{node.podcastTitle}</Link>
                 </td>
+                <td>{node.lastEpisodeDate.toLocaleDateString()}</td>
                 <td>{node.episodeCount}</td>
               </tr>
             ))}

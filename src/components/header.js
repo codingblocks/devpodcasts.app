@@ -3,19 +3,16 @@ import { Link } from 'gatsby'
 
 const Header = ({ siteTitle }) => (
   <div className='header'>
-    <div>
-      <h1>
-        <Link
-          to='/'
-          style={{
-            color: 'white',
-            textDecoration: 'none'
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
-    </div>
+    <Link
+      to='/'
+      style={{
+        color: 'white',
+        textDecoration: 'none'
+      }}
+      className='title'
+    >
+      {siteTitle}
+    </Link>
   </div>
 )
 

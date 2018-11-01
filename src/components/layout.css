@@ -8,6 +8,25 @@ a {
 
 .header {
   background-color: rgb(41, 132, 120);
+  width: 100%;
+  height: 56px;
+
+  width: 100%;
+  height: 56px;
+  color: rgb(255, 255, 255);
+  font-size: 20px;
+  box-shadow: rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 2px 9px 1px, rgba(0, 0, 0, 0.2) 0px 4px 2px -2px;
+  background: rgb(41, 132, 120);
+  transition: transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s;
+}
+
+.header .title {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
   height: 56px;
 }
 
@@ -32,8 +51,8 @@ table {
 }
 
 td {
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   border-top: 1px solid lightgray;
 }
 
@@ -44,19 +63,31 @@ th {
   border-bottom: 1px solid lightgray;
 }
 
-.podcast-title {
-  margin-top: 20px;
+.detail-image {
+  padding: 0px;
+  margin: 20px 0px;
 }
 
-.small {
+.podcast-title {
+  margin: 0px;
+}
+
+.show-details p {
   font-size: smaller;
-  margin-top: 0px;
+  margin: 0px;
 }
 
 .todo p {
   margin-bottom: 0px;
   color: rgb(41, 132, 120);
 }
+
 .todo ul {
   margin-top: 0px;
+}
+
+.responsive-image {
+  width: 100%;
+  height: auto;
+  max-width: 400px;
 }

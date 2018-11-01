@@ -4,33 +4,30 @@ import { Link } from 'gatsby'
 import Layout from '../components/layout'
 
 export default ({ pageContext }) => {
+  const feed = pageContext.feed.data
   return (
     <Layout>
-      <h1 class='podcast-title'>{pageContext.podcastTitle}</h1>
-      <p className='small'>{pageContext.episodeCount} Episodes</p>
-
-      <div className='todo'>
-        <p>TODO:</p>
-        <ul>
-          <li>Image</li>
-          <li>Description</li>
-          <li>Links (website, feed, podchaser etc)</li>
-          <li>Tags</li>
-        </ul>
+      <div>
+        <img src={feed.image} alt={feed.description.short} className='responsive-image detail-image' />
+        <div className='show-details'>
+          <p><a href={feed.link}>{feed.title}</a></p>
+          <p>Last Episode: {new Date(pageContext.lastEpisodeDate).toLocaleDateString()}</p>
+          <p>{feed.episodes.length} Episodes</p>
+        </div>
       </div>
-
+      <p>{feed.description.long}</p>
       <table>
         <thead>
           <tr>
             <th>Episode</th>
-            <th>Publish date</th>
+            <th>Date</th>
           </tr>
         </thead>
         <tbody>
-          {pageContext.episodes.map(e => (
-            <tr>
-              <td>{e.episodeTitle}</td>
-              <td>{e.published}</td>
+          {feed.episodes.slice(0, 10).map(e => (
+            <tr key={e.enclosure.url}>
+              <td><a href={e.enclosure.url}>{e.title}</a></td>
+              <td>{new Date(e.published).toLocaleDateString()}</td>
             </tr>
           ))}
         </tbody>

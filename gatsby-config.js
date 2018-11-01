@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: 'Tech Podcast Directory'
+    title: 'dev podcasts'
   },
   plugins: [
     'gatsby-plugin-react-helmet',
