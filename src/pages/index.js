@@ -4,13 +4,17 @@ import Layout from '../components/layout'
 
 export const query = graphql`
   query {
-    allPodcastShow(sort:{fields: [episodeCount], order: DESC}) {
+    allPodcastShow(sort:{fields: [lastEpisodeDate], order: DESC}) {
       edges {
         node {
-          episodeCount
-          podcastTitle
           slug
-          lastEpisodeDate
+          episodes {
+            id
+            podcastTitle
+            episodeTitle
+            audioUrl
+            published
+          }
         }
       }
     }    
@@ -18,36 +22,48 @@ export const query = graphql`
 `
 
 export default ({ data }) => {
-  // All this should be done in graphql...
-  const shows = data.allPodcastShow.edges
-    .map(s => Object.assign({}, s.node))
-  shows.forEach(s => { s.lastEpisodeDate = new Date(s.lastEpisodeDate) })
-  shows.sort((a, b) => a.lastEpisodeDate - b.lastEpisodeDate).reverse()
+  let episodes = []
+  data.allPodcastShow.edges.forEach(n => {
+    n.node.episodes.forEach(e => {
+      e.published = new Date(e.published)
+      e.slug = n.node.slug
+    })
+    episodes.push(...n.node.episodes)
+  })
+  episodes.sort((a, b) => b.published - a.published)
+  const recentEpisodes = episodes.slice(0, 25)
 
   return (
     <Layout>
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>Show</th>
-              <th>Last Episode</th>
-              <th>Episode Count</th>
+      <p>
+        Tech Podcasts are a great way to keep in touch with the wide world of programming.
+      </p>
+      <p>
+        Some shows focus on the latest and greatest, and some focus on core skills - either way you are sure to find something you will love!
+      </p>
+      <p><Link to='/shows/'>Browse by show</Link></p>
+      <table>
+        <thead>
+          <tr>
+            <th>Episode Name</th>
+            <th>Podcast Show</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {recentEpisodes.map(e => (
+            <tr key={e.id}>
+              <td>
+                <Link to={e.audioUrl}>{e.episodeTitle}</Link>
+              </td>
+              <td>
+                <Link to={`/shows/${e.slug}`}>{e.podcastTitle}</Link>
+              </td>
+              <td>{e.published.toLocaleDateString()}</td>
             </tr>
-          </thead>
-          <tbody>
-            {shows.map(node => (
-              <tr key={node.podcastTitle}>
-                <td>
-                  <Link to={`/shows/${node.slug}`}>{node.podcastTitle}</Link>
-                </td>
-                <td>{node.lastEpisodeDate.toLocaleDateString()}</td>
-                <td>{node.episodeCount}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          ))}
+        </tbody>
+      </table>
     </Layout>
   )
 }

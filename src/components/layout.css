@@ -47,7 +47,7 @@ h1 {
 table {
   width: 100%;
   border-collapse: collapse;
-  margin: 20px 0 20px 0;
+  margin: 80px 0 20px 0;
 }
 
 td {
@@ -90,4 +90,8 @@ th {
   width: 100%;
   height: auto;
   max-width: 400px;
+}
+
+em {
+  color: #339999;
 }

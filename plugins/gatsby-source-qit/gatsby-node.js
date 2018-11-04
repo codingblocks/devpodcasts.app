@@ -25,7 +25,9 @@ exports.sourceNodes = async (
   delete configOptions.plugins
 
   const processShow = show => {
-    const slug = encodeURI(show.value.trim().replace(/[^\w]+/g, '-')).toLowerCase() // Used for linking
+    const slug = encodeURI(
+      show.value.trim().replace(/[^\w]+/g, '-')
+    ).toLowerCase() // Used for linking
     const normalizedShow = {
       podcastTitle: show.value,
       slug: slug,
