@@ -33,6 +33,13 @@ export default ({ data }) => {
   episodes.sort((a, b) => b.published - a.published)
   const recentEpisodes = episodes.slice(0, 25)
 
+  const today = new Date()
+  let endDate = new Date()
+  endDate.setDate(today.getDate() - today.getDay())
+  let startDate = new Date()
+  startDate.setDate(endDate.getDate() - 7)
+  const dateSlug = `/episodes/for-week/${formatDate(startDate)}-${formatDate(endDate)}/`
+
   return (
     <Layout>
       <p>
@@ -42,6 +49,7 @@ export default ({ data }) => {
         Some shows focus on the latest and greatest, and some focus on core skills - either way you are sure to find something you will love!
       </p>
       <p><Link to='/shows/'>Browse by show</Link></p>
+      <p><Link to={dateSlug}>Browse by week</Link></p>
       <table>
         <thead>
           <tr>
@@ -66,4 +74,8 @@ export default ({ data }) => {
       </table>
     </Layout>
   )
+}
+
+const formatDate = d => {
+  return `${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}`
 }
