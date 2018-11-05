@@ -5,11 +5,11 @@ import Layout from '../components/layout'
 export default ({ data, pageContext }) => {
   const startDate = new Date(pageContext.startDate)
   const endDate = new Date(pageContext.endDate)
+  // Ok, this has gone too far!
   endDate.setHours(23)
   endDate.setMinutes(59)
   endDate.setSeconds(59)
 
-  debugger
   let episodes = []
   let seenEpisodes = {}
   data.allPodcastShow.edges.forEach(n => {
