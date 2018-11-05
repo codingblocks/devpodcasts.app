@@ -5,7 +5,11 @@ import Layout from '../components/layout'
 export default ({ data, pageContext }) => {
   const startDate = new Date(pageContext.startDate)
   const endDate = new Date(pageContext.endDate)
+  endDate.setHours(23)
+  endDate.setMinutes(59)
+  endDate.setSeconds(59)
 
+  debugger
   let episodes = []
   let seenEpisodes = {}
   data.allPodcastShow.edges.forEach(n => {
@@ -34,7 +38,17 @@ export default ({ data, pageContext }) => {
   return (
     <Layout>
       <div>
-        <p>{episodes.length} podcasts released between {startDate.toLocaleDateString()} and {endDate.toLocaleDateString()}</p>
+        <p>
+          {episodes.length}
+          {' '}
+          podcasts released between
+          {' '}
+          {startDate.toLocaleDateString()}
+          {' '}
+          and
+          {' '}
+          {endDate.toLocaleDateString()}
+        </p>
       </div>
       <table>
         <thead>
@@ -48,7 +62,9 @@ export default ({ data, pageContext }) => {
           {episodes.map(e => (
             <tr key={e.audioUrl}>
               <td>
-                <a href={e.audioUrl} title={`Listen to e.{podcastTitle}`}>{e.episodeTitle}</a>
+                <a href={e.audioUrl} title={`Listen to e.{podcastTitle}`}>
+                  {e.episodeTitle}
+                </a>
               </td>
               <td>
                 <Link to={`/shows/${e.slug}`}>{e.podcastTitle}</Link>
