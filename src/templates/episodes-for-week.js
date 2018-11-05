@@ -11,7 +11,6 @@ export default ({ data, pageContext }) => {
   data.allPodcastShow.edges.forEach(n => {
     n.node.episodes.forEach(e => {
       if (seenEpisodes[e.audioUrl]) {
-        console.log(`{e.audioUrl} seen, skipping!`)
         return
       }
       seenEpisodes[e.audioUrl] = true
@@ -19,10 +18,6 @@ export default ({ data, pageContext }) => {
       e.slug = n.node.slug
       if (e.published >= startDate && e.published <= endDate) {
         episodes.push(e)
-      } else {
-        if (e.podcastTitle === 'Coding Blocks') {
-          console.log(`Skipping ${e.podcastTitle} ${e.published}`)
-        }
       }
     })
   })
