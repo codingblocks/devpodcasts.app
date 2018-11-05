@@ -67,7 +67,7 @@ export default ({ data }) => {
           {recentEpisodes.map(e => (
             <tr key={e.id}>
               <td>
-                <Link to={e.audioUrl}>{e.episodeTitle}</Link>
+                <a href={e.audioUrl} title={`Listen to {e.episodeTitle}`}>{e.episodeTitle}</a>
               </td>
               <td>
                 <Link to={`/shows/${e.slug}`}>{e.podcastTitle}</Link>
