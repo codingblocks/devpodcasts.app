@@ -19,10 +19,22 @@ export default ({ data, pageContext }) => {
       e.slug = n.node.slug
       if (e.published >= startDate && e.published <= endDate) {
         episodes.push(e)
+      } else {
+        if (e.podcastTitle === 'Coding Blocks') {
+          console.log(`Skipping ${e.podcastTitle} ${e.published}`)
+        }
       }
     })
   })
   episodes.sort((a, b) => b.published - a.published)
+
+  const previousStart = new Date(startDate)
+  const previousEnd = new Date(endDate)
+  previousStart.setDate(previousStart.getDate() - 7)
+  previousEnd.setDate(previousEnd.getDate() - 7)
+
+  const previousSlug = `/episodes/for-week/${formatDate(previousStart)}-${formatDate(previousEnd)}/`
+  const hidePreviousLink = startDate <= earliestDate
 
   return (
     <Layout>
@@ -51,9 +63,19 @@ export default ({ data, pageContext }) => {
           ))}
         </tbody>
       </table>
-      <Link to='/'>back</Link>
+
+      <Link to={previousSlug} hidden={hidePreviousLink}>Previous week</Link>
     </Layout>
   )
+}
+
+let earliestDate = new Date()
+earliestDate = earliestDate.setDate(earliestDate.getDate() - 90)
+const formatDate = d => {
+  const year = d.getFullYear()
+  const month = (d.getMonth() + 1).toString().padStart(2, '0')
+  const day = d.getDate().toString().padStart(2, '0')
+  return `${year}${month}${day}`
 }
 
 export const query = graphql`

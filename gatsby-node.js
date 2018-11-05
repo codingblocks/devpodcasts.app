@@ -3,7 +3,6 @@ const path = require(`path`)
 exports.onCreateNode = ({ node, actions }) => {
   if (node.internal.type === `PodcastShow`) {
     console.log(`slug: ${node.slug}`)
-
     actions.createPage({
       path: `/shows/${node.slug}/`,
       component: path.resolve(`./src/templates/podcast-show.js`),
@@ -11,8 +10,13 @@ exports.onCreateNode = ({ node, actions }) => {
     })
   }
 
+  let earliestDate = new Date()
+  earliestDate = earliestDate.setDate(earliestDate.getDate() - 90)
   const formatDate = d => {
-    return `${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}`
+    const year = d.getFullYear()
+    const month = (d.getMonth() + 1).toString().padStart(2, '0')
+    const day = d.getDate().toString().padStart(2, '0')
+    return `${year}${month}${day}`
   }
 
   exports.onPreExtractQueries = ({ actions }) => {
@@ -23,15 +27,19 @@ exports.onCreateNode = ({ node, actions }) => {
     let startDate = new Date()
     startDate.setDate(endDate.getDate() - 7)
 
-    const slug = `/episodes/for-week/${formatDate(startDate)}-${formatDate(endDate)}/`
-    console.log(`Created page for ${slug}`)
-    actions.createPage({
-      path: slug,
-      component: path.resolve(`./src/templates/episodes-for-week.js`),
-      context: {
-        startDate: startDate,
-        endDate: endDate
-      }
-    })
+    while (startDate > earliestDate) {
+      const slug = `/episodes/for-week/${formatDate(startDate)}-${formatDate(endDate)}/`
+      console.log(`Created page for ${slug}`)
+      actions.createPage({
+        path: slug,
+        component: path.resolve(`./src/templates/episodes-for-week.js`),
+        context: {
+          startDate: new Date(startDate),
+          endDate: new Date(endDate)
+        }
+      })
+      startDate.setDate(startDate.getDate() - 7)
+      endDate.setDate(endDate.getDate() - 7)
+    }
   }
 }

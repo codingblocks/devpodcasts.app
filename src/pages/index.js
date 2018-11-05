@@ -23,12 +23,17 @@ export const query = graphql`
 
 export default ({ data }) => {
   let episodes = []
+  let seenEpisodes = {}
   data.allPodcastShow.edges.forEach(n => {
     n.node.episodes.forEach(e => {
+      if (seenEpisodes[e.audioUrl]) {
+        return
+      }
+      seenEpisodes[e.audioUrl] = true
       e.published = new Date(e.published)
       e.slug = n.node.slug
+      episodes.push(e)
     })
-    episodes.push(...n.node.episodes)
   })
   episodes.sort((a, b) => b.published - a.published)
   const recentEpisodes = episodes.slice(0, 25)
@@ -76,6 +81,11 @@ export default ({ data }) => {
   )
 }
 
+// Lots of dupe code!!
+
 const formatDate = d => {
-  return `${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}`
+  const year = d.getFullYear()
+  const month = (d.getMonth() + 1).toString().padStart(2, '0')
+  const day = d.getDate().toString().padStart(2, '0')
+  return `${year}${month}${day}`
 }
