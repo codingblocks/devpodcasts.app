@@ -25,11 +25,11 @@ export default ({ data, pageContext }) => {
 
   const previousStart = new Date(startDate)
   const previousEnd = new Date(endDate)
-  previousStart.setDate(previousStart.getDate() - 7)
-  previousEnd.setDate(previousEnd.getDate() - 7)
+  previousStart.setDate(startDate.getDate() - 7)
+  previousEnd.setDate(endDate.getDate() - 7)
 
   const previousSlug = `/episodes/for-week/${formatDate(previousStart)}-${formatDate(previousEnd)}/`
-  const hidePreviousLink = startDate <= earliestDate
+  const hidePreviousLink = previousStart < earliestDate
 
   return (
     <Layout>
@@ -65,7 +65,8 @@ export default ({ data, pageContext }) => {
 }
 
 let earliestDate = new Date()
-earliestDate = earliestDate.setDate(earliestDate.getDate() - 90)
+earliestDate.setDate(earliestDate.getDate() - 90)
+
 const formatDate = d => {
   const year = d.getFullYear()
   const month = (d.getMonth() + 1).toString().padStart(2, '0')

@@ -21,10 +21,10 @@ exports.onCreateNode = ({ node, actions }) => {
 
   exports.onPreExtractQueries = ({ actions }) => {
     console.log(`Creating pages by date range`)
-    const today = new Date()
-    let endDate = new Date()
+    let today = newDate()
+    let endDate = newDate()
     endDate.setDate(today.getDate() - today.getDay())
-    let startDate = new Date()
+    let startDate = newDate()
     startDate.setDate(endDate.getDate() - 7)
 
     while (startDate > earliestDate) {
@@ -42,4 +42,9 @@ exports.onCreateNode = ({ node, actions }) => {
       endDate.setDate(endDate.getDate() - 7)
     }
   }
+}
+
+const newDate = () => {
+  const d = new Date()
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate())
 }
