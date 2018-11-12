@@ -5,8 +5,8 @@ class Chart extends Component {
   constructor (props) {
     super(props)
     const dateCounts = []
-    props.episodes.reverse().forEach(e => {
-      let date = new Date(e.published.getFullYear(), e.published.getMonth() + 1, e.published.getDate(), 0, 0, 0)
+    props.episodes.map(e => e).reverse().forEach(e => {
+      let date = new Date(e.published.getFullYear(), e.published.getMonth(), e.published.getDate(), 0, 0, 0)
       let lastIndex = dateCounts.length - 1
       if (lastIndex < 0 || dateCounts[lastIndex].x.getTime() !== date.getTime()) {
         dateCounts[lastIndex + 1] = {
@@ -27,7 +27,8 @@ class Chart extends Component {
           label: 'Episodes',
           data: dateCounts,
           backgroundColor: '#339999',
-          pointRadius: 0
+          pointRadius: 0,
+          spanGaps: true
         }]
       },
       options: {
@@ -38,7 +39,10 @@ class Chart extends Component {
         },
         scales: {
           xAxes: [{
-            type: 'time'
+            type: 'time',
+            time: {
+              unit: props.unit
+            }
           }],
           yAxes: [{
             scaleLabel: {

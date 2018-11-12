@@ -1,6 +1,7 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
 import Layout from '../components/layout'
+import Chart from '../components/releaseChart'
 
 export default ({ data, pageContext }) => {
   const startDate = new Date(pageContext.startDate)
@@ -36,6 +37,7 @@ export default ({ data, pageContext }) => {
       <div>
         <p>{episodes.length} podcasts released between {startDate.toLocaleDateString()} and {endDate.toLocaleDateString()}</p>
       </div>
+      <Chart episodes={episodes} />
       <table>
         <thead>
           <tr>
