@@ -38,7 +38,7 @@ exports.sourceNodes = async (
     }
     return Object.assign({}, normalizedShow, {
       id: createNodeId(
-        `podcast-show-${normalizedShow.podcastTitle}-${normalizedShow.episodeCount}`
+        `podcast-show-${normalizedShow.slug}-${normalizedShow.episodeCount}`
       ),
       parent: null,
       children: [],
