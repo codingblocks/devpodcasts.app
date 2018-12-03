@@ -3,7 +3,7 @@ if (!apiKey) {
   console.error('No API key found for the search engine, aborting')
 }
 const searchUrl = process.env.AZURE_SEARCH_ENDPOINT
-if (!apiKey) {
+if (!searchUrl) {
   console.error('No search endpoint found for the search engine')
 }
 

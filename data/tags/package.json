@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "azure-search": "0.0.21",
     "node-fetch": "^2.3.0"
   }
 }
