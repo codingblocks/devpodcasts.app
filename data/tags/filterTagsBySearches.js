@@ -18,13 +18,13 @@ const requestDelay = process.env.TAG_FILTER_REQUEST_DELAY || 1000
 
 // read in the file
 const unvettedTerms = fs
-  .readFileSync(`unvettedTags.txt`, 'utf-8')
+  .readFileSync(`files/unvettedTags.txt`, 'utf-8')
   .split(require('os').EOL)
   .map(t => t.split(',')[0])
 
 const blacklist = {}
 fs
-  .readFileSync(`blacklistedTags.txt`, 'utf-8')
+  .readFileSync(`files/blacklistedTags.txt`, 'utf-8')
   .split(require('os').EOL)
   .map(t => t.split(`,`)[0])
   .forEach(t => { blacklist[t] = true })
@@ -62,7 +62,7 @@ getFilteredTerms()
     const sorted = filteredTerms.sort((a, b) => b.count - a.count)
     console.log(`Keeping ${sorted.length} out of ${sorted.length}`)
     fs.writeFileSync(
-      `filteredTags.txt`,
+      `files/filteredTags.txt`,
       sorted.map(t => `${t.term},${t.count}`).join(require('os').EOL)
     )
   })

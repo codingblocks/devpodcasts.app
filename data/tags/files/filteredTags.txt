@@ -23,7 +23,6 @@ ios,179
 typescript,177
 java,175
 react-native,168
-comments,166
 php,165
 kubernetes,139
 functional-programming,129
@@ -240,7 +239,6 @@ cqrs,4
 iframe,4
 data-warehouse,4
 fs,4
-java-ee,4
 mercurial,3
 command-line-interface,3
 delphi,3
@@ -251,8 +249,6 @@ neural-network,3
 modulo,3
 gorilla,3
 database-design,3
-hard-drive,3
-google-reader,3
 automated-tests,3
 knockout.js,3
 graph-theory,3
