@@ -1,6 +1,6 @@
 Proof of concept site for generating static content from the [qit](https://github.com/codingblocks/podcast-app) search engine
 
-Check out a preview here: [https://brave-albattani-ff8f3d.netlify.com/](https://brave-albattani-ff8f3d.netlify.com/)
+Check out a preview here: [http://devpodcasts.app](http://devpodcasts.app)
 
 Dev:
 ```npm install && gatsby develop```
