@@ -257,3 +257,6 @@ ravendb,3
 aop,3
 prism,3
 facade,3
+aws
+gatsby
+visbug

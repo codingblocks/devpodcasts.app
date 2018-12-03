@@ -23,10 +23,12 @@ const sleep = async ms => {
 
 const fs = require('fs')
 const fetch = require('node-fetch')
-const requestDelay = process.env.TAG_FILTER_REQUEST_DELAY || 1000
+const requestDelay = process.env.TAG_FILTER_REQUEST_DELAY || 2000
 
 // read in the file
-const tags = fs.readFileSync(`files/filteredTags.txt`, 'utf-8').split(require('os').EOL)
+const tags = fs
+  .readFileSync(`files/filteredTags.txt`, 'utf-8')
+  .split(require('os').EOL)
 const AzureSearch = require('azure-search')
 const client = AzureSearch({
   url: searchUrl,
@@ -34,12 +36,13 @@ const client = AzureSearch({
   version: version
 })
 
-const updateEpisodes = async (tag) => {
+const updateEpisodes = async () => {
   await Promise.all(
-    tags.map(t => t.split(',')[0])
+    tags
+      .map(t => t.split(',')[0])
       .map(async t => {
         const safeTag = encodeURI(`"${t.replace(/\-/g, ' ')}"`)
-        const params = `api-version=2017-11-11&$top=100&search=${safeTag}` // TODO exclude ones that have the tag already
+        const params = `api-version=2017-11-11&$top=100&search=${safeTag}&$filter=not tags/any(t: t eq '${safeTag}')` // excludes ones that have the tag already
         const url = `${searchUrl}/indexes/podcasts/docs?${params}`
 
         await sleep(requestDelay)
@@ -49,10 +52,10 @@ const updateEpisodes = async (tag) => {
           .then(json => {
             const episodes = json.value
             episodes.forEach(e => {
-              if (e.tags.indexOf(t) >= 0) {
-                return
+              if (e.tags.indexOf(t) < 0) {
+                e.tags.push(t)
               }
-              e.tags.push(t)
+              console.log(e.tags)
             })
             client.updateDocuments(index, episodes, function (err, results) {
               // optional error, or confirmation of each document being added

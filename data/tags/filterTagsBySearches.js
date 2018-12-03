@@ -16,18 +16,25 @@ const fetch = require('node-fetch')
 const threshold = process.env.TAG_FILTER_THRESHOLD || 3
 const requestDelay = process.env.TAG_FILTER_REQUEST_DELAY || 1000
 
-// read in the file
+// read in the files
+const whitelist = fs
+  .readFileSync(`files/blacklistedTags.txt`, 'utf-8')
+  .split(require('os').EOL)
+  .map(t => t.split(`,`)[0])
+
 const unvettedTerms = fs
   .readFileSync(`files/unvettedTags.txt`, 'utf-8')
   .split(require('os').EOL)
   .map(t => t.split(',')[0])
+  .concat(whitelist)
 
 const blacklist = {}
-fs
-  .readFileSync(`files/blacklistedTags.txt`, 'utf-8')
+fs.readFileSync(`files/blacklistedTags.txt`, 'utf-8')
   .split(require('os').EOL)
   .map(t => t.split(`,`)[0])
-  .forEach(t => { blacklist[t] = true })
+  .forEach(t => {
+    blacklist[t] = true
+  })
 
 const getFilteredTerms = async () => {
   const filteredTerms = []
@@ -57,12 +64,11 @@ const getFilteredTerms = async () => {
   )
   return filteredTerms
 }
-getFilteredTerms()
-  .then(filteredTerms => {
-    const sorted = filteredTerms.sort((a, b) => b.count - a.count)
-    console.log(`Keeping ${sorted.length} out of ${sorted.length}`)
-    fs.writeFileSync(
-      `files/filteredTags.txt`,
-      sorted.map(t => `${t.term},${t.count}`).join(require('os').EOL)
-    )
-  })
+getFilteredTerms().then(filteredTerms => {
+  const sorted = filteredTerms.sort((a, b) => b.count - a.count)
+  console.log(`Keeping ${sorted.length} out of ${sorted.length}`)
+  fs.writeFileSync(
+    `files/filteredTags.txt`,
+    sorted.map(t => `${t.term},${t.count}`).join(require('os').EOL)
+  )
+})

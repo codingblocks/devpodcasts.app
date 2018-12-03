@@ -35,7 +35,7 @@ exports.sourceNodes = async (
   const getAllTags = async () => {
     console.log(`Getting all tags`)
     for (let tagIndex in configOptions.tags) {
-      const tag = configOptions.tags[tagIndex]
+      const tag = configOptions.tags[tagIndex].split(',')[0]
       console.log(`Getting tag ${tag}`)
       const url = `${configOptions.episodesByTagUrl}&search=${encodeURI(tag)}`
       const tagResponse = await fetch(url, searchHeaders).then(r => r.json())

@@ -5,7 +5,7 @@ import Chart from '../components/releaseChart'
 
 export const query = graphql`
   query {
-    allPodcastShow(sort:{fields: [lastEpisodeDate], order: DESC}) {
+    allPodcastShow(sort: { fields: [lastEpisodeDate], order: DESC }) {
       edges {
         node {
           slug
@@ -19,7 +19,7 @@ export const query = graphql`
           }
         }
       }
-    }    
+    }
   }
 `
 
@@ -45,18 +45,26 @@ export default ({ data }) => {
   endDate.setDate(today.getDate() - today.getDay())
   let startDate = new Date()
   startDate.setDate(endDate.getDate() - 7)
-  const dateSlug = `/episodes/for-week/${formatDate(startDate)}-${formatDate(endDate)}/`
+  const dateSlug = `/episodes/for-week/${formatDate(startDate)}-${formatDate(
+    endDate
+  )}/`
 
   return (
     <Layout>
       <p>
-        Tech Podcasts are a great way to keep in touch with the wide world of programming.
+        Tech Podcasts are a great way to keep in touch with the wide world of
+        programming.
       </p>
       <p>
-        Some shows focus on the latest and greatest, and some focus on core skills - either way you are sure to find something you will love!
+        Some shows focus on the latest and greatest, and some focus on core
+        skills - either way you are sure to find something you will love!
       </p>
-      <p><Link to='/shows/'>Browse by show</Link></p>
-      <p><Link to={dateSlug}>Browse by week</Link></p>
+      <p>
+        <Link to='/shows/'>Browse by show</Link>
+      </p>
+      <p>
+        <Link to={dateSlug}>Browse by week</Link>
+      </p>
 
       <Chart episodes={episodes} />
 
@@ -73,7 +81,9 @@ export default ({ data }) => {
           {recentEpisodes.map(e => (
             <tr key={e.id}>
               <td>
-                <a href={e.audioUrl} title={`Listen to {e.episodeTitle}`}>{e.episodeTitle}</a>
+                <a href={e.audioUrl} title={`Listen to ${e.episodeTitle}`}>
+                  {e.episodeTitle}
+                </a>
               </td>
               <td>
                 <Link to={`/shows/${e.slug}`}>{e.podcastTitle}</Link>
@@ -93,6 +103,9 @@ export default ({ data }) => {
 const formatDate = d => {
   const year = d.getFullYear()
   const month = (d.getMonth() + 1).toString().padStart(2, '0')
-  const day = d.getDate().toString().padStart(2, '0')
+  const day = d
+    .getDate()
+    .toString()
+    .padStart(2, '0')
   return `${year}${month}${day}`
 }

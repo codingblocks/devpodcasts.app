@@ -58,10 +58,7 @@ exports.sourceNodes = async (
       'api-key': configOptions.key
     }
   }
-  const showResponse = await fetch(
-    configOptions.allShowsUrl,
-    searchHeaders
-  )
+  const showResponse = await fetch(configOptions.allShowsUrl, searchHeaders)
     .then(r => r.json())
     .catch(e => {
       console.error(`Error fetching ${configOptions.allShowsUrl}`)
@@ -70,22 +67,21 @@ exports.sourceNodes = async (
 
   const shows = showResponse['@search.facets'].podcastTitle
   const processShows = async () => {
+    console.log(`${shows.length} shows`)
     for (const show of shows) {
       // TODO would be better to use real feed
-      const episodeUrl = `${configOptions.individualUrl}&search=${encodeURI(show.value)}`
+      const episodeUrl = `${configOptions.individualUrl}&search=${encodeURI(
+        show.value
+      )}`
       console.log(episodeUrl)
-      const episodeData = await fetch(episodeUrl, searchHeaders).then(r =>
-        r.json()
-      )
+      const episodeData = await fetch(episodeUrl, searchHeaders)
+        .then(r => r.json())
         .catch(e => {
           console.error(`Error getting episodes for ${episodeUrl}`)
           console.error(e)
         })
       show.episodes = episodeData.value
       const feedUrl = show.episodes[0].feed
-      if (feedUrl === 'http://coder.show/rss') {
-        break
-      }
       const data = await getFeed(feedUrl).catch(e => {
         console.error(`Error getting feed for ${episodeUrl}`)
         console.error(e)
