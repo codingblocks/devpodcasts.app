@@ -57,6 +57,7 @@ export default ({ data, pageContext }) => {
           <tr>
             <th>Episode Name</th>
             <th>Podcast Show</th>
+            <th>Tags</th>
             <th>Date</th>
           </tr>
         </thead>
@@ -64,13 +65,14 @@ export default ({ data, pageContext }) => {
           {episodes.map(e => (
             <tr key={e.audioUrl}>
               <td>
-                <a href={e.audioUrl} title={`Listen to e.{podcastTitle}`}>
+                <a href={e.audioUrl} title={`Listen to e.${e.podcastTitle}`}>
                   {e.episodeTitle}
                 </a>
               </td>
               <td>
                 <Link to={`/shows/${e.slug}`}>{e.podcastTitle}</Link>
               </td>
+              <td>{e.tags.join(', ')}</td>
               <td>{e.published.toLocaleDateString()}</td>
             </tr>
           ))}
@@ -104,6 +106,7 @@ export const query = graphql`
             episodeTitle
             audioUrl
             published
+            tags
           }
         }
       }

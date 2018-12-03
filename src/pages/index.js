@@ -15,6 +15,7 @@ export const query = graphql`
             episodeTitle
             audioUrl
             published
+            tags
           }
         }
       }
@@ -64,6 +65,7 @@ export default ({ data }) => {
           <tr>
             <th>Episode Name</th>
             <th>Podcast Show</th>
+            <th>Tags</th>
             <th>Date</th>
           </tr>
         </thead>
@@ -76,6 +78,7 @@ export default ({ data }) => {
               <td>
                 <Link to={`/shows/${e.slug}`}>{e.podcastTitle}</Link>
               </td>
+              <td>{e.tags.join(', ')}</td>
               <td>{e.published.toLocaleDateString()}</td>
             </tr>
           ))}

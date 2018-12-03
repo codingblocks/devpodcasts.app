@@ -3,12 +3,15 @@ const parsePodcastFeed = require('node-podcast-parser')
 
 async function getFeed (feedUrl) {
   console.log(` fetching ${feedUrl}`)
-  const body = await (await fetch(feedUrl)).text()
+  const body = await (await fetch(feedUrl)).text().catch(e => {
+    console.error(`Error fetching ${feedUrl}`)
+    return ''
+  })
   return new Promise(function (resolve, reject) {
     parsePodcastFeed(body, (err, results) => {
       if (err) {
         console.error(err)
-        reject(err)
+        resolve(err)
       } else {
         resolve(results)
       }
@@ -58,7 +61,12 @@ exports.sourceNodes = async (
   const showResponse = await fetch(
     configOptions.allShowsUrl,
     searchHeaders
-  ).then(r => r.json())
+  )
+    .then(r => r.json())
+    .catch(e => {
+      console.error(`Error fetching ${configOptions.allShowsUrl}`)
+      console.error(e)
+    })
 
   const shows = showResponse['@search.facets'].podcastTitle
   const processShows = async () => {
@@ -69,11 +77,22 @@ exports.sourceNodes = async (
       const episodeData = await fetch(episodeUrl, searchHeaders).then(r =>
         r.json()
       )
+        .catch(e => {
+          console.error(`Error getting episodes for ${episodeUrl}`)
+          console.error(e)
+        })
       show.episodes = episodeData.value
       const feedUrl = show.episodes[0].feed
+      if (feedUrl === 'http://coder.show/rss') {
+        break
+      }
+      const data = await getFeed(feedUrl).catch(e => {
+        console.error(`Error getting feed for ${episodeUrl}`)
+        console.error(e)
+      })
       show.feed = {
         url: feedUrl,
-        data: await getFeed(feedUrl)
+        data: data
       }
       show.lastEpisodeDate = new Date(show.feed.data.episodes[0].published)
 

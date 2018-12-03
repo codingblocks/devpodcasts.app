@@ -8,6 +8,7 @@ exports.onCreateNode = ({ node, actions }) => {
       component: path.resolve(`./src/templates/podcast-show.js`),
       context: node
     })
+    console.log(`created page`)
   }
 
   let earliestDate = new Date()
