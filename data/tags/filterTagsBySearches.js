@@ -14,17 +14,29 @@ const sleep = async ms => {
 const fs = require('fs')
 const fetch = require('node-fetch')
 const threshold = process.env.TAG_FILTER_THRESHOLD || 3
-const requestDelay = process.env.TAG_FILTER_REQUEST_DELAY || 500
+const requestDelay = process.env.TAG_FILTER_REQUEST_DELAY || 1000
 
 // read in the file
 const unvettedTerms = fs
   .readFileSync(`unvettedTags.txt`, 'utf-8')
   .split(require('os').EOL)
+  .map(t => t.split(',')[0])
+
+const blacklist = {}
+fs
+  .readFileSync(`blacklistedTags.txt`, 'utf-8')
+  .split(require('os').EOL)
+  .map(t => t.split(`,`)[0])
+  .forEach(t => { blacklist[t] = true })
 
 const getFilteredTerms = async () => {
   const filteredTerms = []
   await Promise.all(
     unvettedTerms.map(async t => {
+      if (blacklist[t]) {
+        console.log(`Blacklisting ${t}`)
+        return
+      }
       const safeTag = encodeURI(`"${t.replace(/\-/g, ' ')}"`)
       const params = `api-version=2017-11-11&$top=0&$count=true&search=${safeTag}`
       const url = `${searchUrl}/indexes/podcasts/docs?${params}`
@@ -45,10 +57,12 @@ const getFilteredTerms = async () => {
   )
   return filteredTerms
 }
-getFilteredTerms().then(filteredTerms => {
-  console.log(`Keeping ${filteredTerms.length} out of ${unvettedTerms.length}`)
-  fs.writeFileSync(
-    `filteredTags.txt`,
-    filteredTerms.map(t => `${t.term},${t.count}`).join(require('os').EOL)
-  )
-})
+getFilteredTerms()
+  .then(filteredTerms => {
+    const sorted = filteredTerms.sort((a, b) => b.count - a.count)
+    console.log(`Keeping ${sorted.length} out of ${sorted.length}`)
+    fs.writeFileSync(
+      `filteredTags.txt`,
+      sorted.map(t => `${t.term},${t.count}`).join(require('os').EOL)
+    )
+  })
