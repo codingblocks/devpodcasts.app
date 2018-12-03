@@ -17,7 +17,6 @@ frameworks,230
 architecture,228
 events,221
 docker,211
-less,193
 visual-studio,190
 azure,182
 ios,179
