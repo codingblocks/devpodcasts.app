@@ -260,3 +260,11 @@ facade,3
 aws
 gatsby
 visbug
+quantum
+agile
+ai
+serveless
+kafka
+istio
+npm
+rapidapi

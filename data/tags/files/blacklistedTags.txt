@@ -609,3 +609,4 @@ hard-drive,3
 google-reader,3
 java-ee,4
 comments,166
+components

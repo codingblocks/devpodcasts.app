@@ -51,9 +51,11 @@ const updateEpisodes = async () => {
           .then(response => response.json())
           .then(json => {
             const episodes = json.value
+            let updateCount = 0
             episodes.forEach(e => {
               if (e.tags.indexOf(t) < 0) {
                 e.tags.push(t)
+                updateCount++
               }
               console.log(e.tags)
             })
@@ -63,7 +65,7 @@ const updateEpisodes = async () => {
                 console.error(`Error updating tag ${t}`)
                 console.error(err)
               } else {
-                console.log(`${t} updated, ${episodes.length} episodes`)
+                console.log(`${t} updated, ${updateCount} episodes`)
               }
             })
           })

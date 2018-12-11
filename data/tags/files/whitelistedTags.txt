@@ -1,4 +1,11 @@
 aws
 gatsby
 visbug
-data-structures
+quantum
+agile
+ai
+serveless
+kafka
+istio
+npm
+rapidapi
