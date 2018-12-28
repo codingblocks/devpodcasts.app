@@ -1,9 +1,6 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
 import Layout from '../components/layout'
-// import Chart from '../components/releaseChart'
-import Hero from '../components/hero'
-import QitOverview from '../components/qitOverview'
 
 export const query = graphql`
   query {
@@ -53,46 +50,48 @@ export default ({ data }) => {
 
   return (
     <Layout>
-      <Hero />
-      <QitOverview />
       <section className='section clearfix'>
-        <div class='container'>
-          <p>
-            <Link to='/shows/'>Browse by show</Link>
-          </p>
-          <p>
-            <Link to={dateSlug}>Browse by week</Link>
-          </p>
+        <p>
+          Programming Podcasts are a great way to stay educated and inspired.
+        </p>
+        <p>
+          Some shows focus on the latest and greatest programming trends, and
+          others focus on fundamentals and soft skills. Let us help you find the
+          right episode for you.
+        </p>
+        <p>
+          <Link to='/shows/'>Browse by show</Link>
+        </p>
+        <p>
+          <Link to={dateSlug}>Browse by week</Link>
+        </p>
 
-          {/* <Chart episodes={episodes} /> */}
-
-          <table>
-            <thead>
-              <tr>
-                <th>Episode Name</th>
-                <th>Podcast Show</th>
-                <th>Tags</th>
-                <th>Date</th>
+        <table>
+          <thead>
+            <tr>
+              <th>Episode Name</th>
+              <th>Podcast Show</th>
+              <th>Tags</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {recentEpisodes.map(e => (
+              <tr key={e.id}>
+                <td>
+                  <a href={e.audioUrl} title={`Listen to ${e.episodeTitle}`}>
+                    {e.episodeTitle}
+                  </a>
+                </td>
+                <td>
+                  <Link to={`/shows/${e.slug}`}>{e.podcastTitle}</Link>
+                </td>
+                <td>{e.tags.join(', ')}</td>
+                <td>{e.published.toLocaleDateString()}</td>
               </tr>
-            </thead>
-            <tbody>
-              {recentEpisodes.map(e => (
-                <tr key={e.id}>
-                  <td>
-                    <a href={e.audioUrl} title={`Listen to ${e.episodeTitle}`}>
-                      {e.episodeTitle}
-                    </a>
-                  </td>
-                  <td>
-                    <Link to={`/shows/${e.slug}`}>{e.podcastTitle}</Link>
-                  </td>
-                  <td>{e.tags.join(', ')}</td>
-                  <td>{e.published.toLocaleDateString()}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </section>
     </Layout>
   )
