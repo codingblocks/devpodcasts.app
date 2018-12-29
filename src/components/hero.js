@@ -8,7 +8,7 @@ const Hero = () => (
       <h3>Listen to podcast episodes on tags you care about</h3>
       <ul className='discovery-list'>
         <li>
-          <Link to='https://qit.cloud'>search</Link>
+          <a href='https://qit.cloud'>search</a>
         </li>
         <li className='discovery-list-spacer'>|</li>
         <li>
