@@ -1,9 +1,4 @@
 ;(function ($) {
-  $('.navbar-collapse a').on('click', function () {
-    $('.navbar-collapse').removeClass('in')
-    $('.navbar-collapse').addClass('collapse')
-  })
-
   jQuery('.sponsors-slider').flexslider({
     animation: 'slide',
     directionNav: true,

@@ -1,44 +1,78 @@
 import React from 'react'
 import { Link } from 'gatsby'
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  Button
+} from 'reactstrap'
 
-const Navbar = () => (
-  <div
-    className='navbar navbar-fixed-top'
-    role='navigation'
-    data-0='background-color:rgba(0,0,0,0);'
-    data-300='background-color:rgba(0, 0, 0, 1);'
-  >
-    <div className='navbar-header'>
-      <button
-        type='button'
-        className='navbar-toggle'
-        data-toggle='collapse'
-        data-target='.navbar-collapse'
-      >
-        <span className='fa fa-bars color-white' />
-      </button>
-    </div>
-    <div className='navbar-collapse collapse'>
-      <ul
-        className='nav navbar-nav'
-        data-0='margin-top:20px;'
-        data-300='margin-top:5px;'
-      >
-        <li className='active'>
-          <a href='index.html'>Home</a>
-        </li>
-        <li>
-          <a href='/tags'>tags</a>
-        </li>
-        <li>
-          <a href='/search'>search</a>
-        </li>
-        <li>
-          <a href='/latest'>latest</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-)
+export default class ReactNavbar extends React.Component {
+  constructor (props) {
+    super(props)
 
-export default Navbar
+    this.toggleNavbar = this.toggleNavbar.bind(this)
+    this.state = {
+      collapsed: true
+    }
+  }
+
+  toggleNavbar () {
+    this.setState({
+      collapsed: !this.state.collapsed
+    })
+  }
+  render () {
+    return (
+      <div>
+        <Navbar dark fixed='top' onClick={this.toggleNavbar}>
+          <NavbarBrand to='/'>
+            <p className='home-title'>Dev Podcasts</p>
+          </NavbarBrand>
+          <NavbarToggler />
+          <Collapse isOpen={!this.state.collapsed} navbar>
+            <Nav navbar>
+              <NavItem>
+                <div className='input-group nav-search'>
+                  <input
+                    className='form-control py-2'
+                    placeholder='search for something'
+                    type='search'
+                    id='example-search-input'
+                  />
+                  <span className='input-group-append'>
+                    <button className='btn btn-outline-secondary' type='button'>
+                      <i className='fa fa-search' />
+                    </button>
+                  </span>
+                </div>
+              </NavItem>
+              <NavItem>
+                <NavLink to='/tags'>
+                  <Button block>Tags</Button>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink to='/latest'>
+                  <Button block>Latest</Button>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  href='https://github.com/codingblocks/podcast-app'
+                  target='_blank'
+                >
+                  <Button block>Github Repository</Button>
+                </NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    )
+  }
+}

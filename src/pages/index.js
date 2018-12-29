@@ -56,7 +56,7 @@ export default ({ data }) => {
       <Hero />
       <QitOverview />
       <section className='section clearfix'>
-        <div class='container'>
+        <div className='container'>
           <p>
             <Link to='/shows/'>Browse by show</Link>
           </p>

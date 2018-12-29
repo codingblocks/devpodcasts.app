@@ -19,7 +19,8 @@
     "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.6.1",
     "react-helmet": "^5.2.0",
-    "reactstrap": "^6.5.0"
+    "reactstrap": "^6.5.0",
+    "simple-load-script": "^1.0.2"
   },
   "keywords": [
     "gatsby"

@@ -34,23 +34,9 @@ const Layout = ({ children }) => (
           {/* <link rel='stylesheet' href={withPrefix('./css/bootstrap.css')} />
           <link rel='stylesheet' href={withPrefix('./css/flexslider.css')} />
           <link rel='stylesheet' href={withPrefix('./css/style.css')} /> */}
-
-          <script src={withPrefix('./js/_bundle.js')} />
         </Helmet>
         <Navbar />
         {children}
-        <section id='footer' className='section footer'>
-          <div className='align-center copyright'>
-            <p>Copyright &copy; All rights reserved</p>
-            <p>
-              Photo by{' '}
-              <a href='https://unsplash.com/photos/cZWZjymwI9o?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>
-                Stink Pickle
-              </a>{' '}
-              on <a href='https://unsplash.com'>Unsplash</a>
-            </p>
-          </div>
-        </section>
       </>
     )}
   />

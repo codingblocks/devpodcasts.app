@@ -8,11 +8,11 @@ const Hero = () => (
       <h3>Listen to podcast episodes on tags you care about</h3>
       <ul className='discovery-list'>
         <li>
-          <Link to='/tags'>tags</Link>
+          <Link to='search'>search</Link>
         </li>
         <li className='discovery-list-spacer'>|</li>
         <li>
-          <Link to='search'>search</Link>
+          <Link to='/tags'>tags</Link>
         </li>
         <li className='discovery-list-spacer'>|</li>
         <li>
