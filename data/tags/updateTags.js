@@ -42,7 +42,7 @@ const updateEpisodes = async () => {
       .map(t => t.split(',')[0])
       .map(async t => {
         const safeTag = encodeURI(`"${t.replace(/\-/g, ' ')}"`)
-        const params = `api-version=2017-11-11&$top=100&search=${safeTag}&$filter=not tags/any(t: t eq '${safeTag}')` // excludes ones that have the tag already
+        const params = `api-version=2017-11-11&$top=1000&search=${safeTag}&$filter=not tags/any(t: t eq '${t}')` // excludes ones that have the tag already
         const url = `${searchUrl}/indexes/podcasts/docs?${params}`
 
         await sleep(requestDelay)
@@ -57,17 +57,25 @@ const updateEpisodes = async () => {
                 e.tags.push(t)
                 updateCount++
               }
-              console.log(e.tags)
+              // console.log(e.tags)
             })
-            client.updateDocuments(index, episodes, function (err, results) {
-              // optional error, or confirmation of each document being added
-              if (err) {
-                console.error(`Error updating tag ${t}`)
-                console.error(err)
-              } else {
-                console.log(`${t} updated, ${updateCount} episodes`)
+            if (episodes.length) {
+              if (t === 'docker') {
+                console.log(
+                  episodes.map(e => e.episodeTitle + ' ' + e.tags.join(','))
+                )
               }
-            })
+              // TODO should only update an episode once
+              client.updateDocuments(index, episodes, function (err, results) {
+                // optional error, or confirmation of each document being added
+                if (err) {
+                  console.error(`Error updating tag ${t}`)
+                  // console.error(err)
+                } else {
+                  console.log(`${t} updated, ${updateCount} episodes`)
+                }
+              })
+            }
           })
       })
   )
