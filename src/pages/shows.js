@@ -4,7 +4,7 @@ import Layout from '../components/layout'
 
 export const query = graphql`
   query {
-    allPodcastShow(sort:{fields: [episodeCount], order: DESC}) {
+    allPodcastShow(sort: { fields: [episodeCount], order: DESC }) {
       edges {
         node {
           episodeCount
@@ -13,9 +13,9 @@ export const query = graphql`
           lastEpisodeDate
         }
       }
-    }    
+    }
   }
-  `
+`
 
 export default ({ data }) => {
   // Not the most efficient way to add things up, but it's convinient!
@@ -24,36 +24,40 @@ export default ({ data }) => {
 
   return (
     <Layout>
-      <div>
-        <p>
-          Here is a list of tech podcasts, ordered by the number of episodes indexed by
-          the <a href='https://qit.cloud'>qit</a> search engine.
-        </p>
-        <p>
-          If you assume an average of 45 minutes per episode, on average, then that's
-          roughly <em>{meta.estimatedHours} hours</em> worth of content.
-        </p>
-        <table>
-          <thead>
-            <tr>
-              <th>Show</th>
-              <th>Last Episode</th>
-              <th>Episode Count</th>
-            </tr>
-          </thead>
-          <tbody>
-            {shows.map(node => (
-              <tr key={node.podcastTitle}>
-                <td>
-                  <Link to={`/shows/${node.slug}`}>{node.podcastTitle}</Link>
-                </td>
-                <td>{node.lastEpisodeDate.toLocaleDateString()}</td>
-                <td>{node.episodeCount}</td>
+      <section class='section'>
+        <div class='container'>
+          <h2>Shows</h2>
+          <p>
+            Here is a list of tech podcasts, ordered by the number of episodes
+            indexed by the <a href='https://qit.cloud'>qit</a> search engine.
+          </p>
+          <p>
+            If you assume an average of 45 minutes per episode, on average, then
+            that's roughly <em>{meta.estimatedHours} hours</em> worth of
+            content.
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th>Show</th>
+                <th>Last Episode</th>
+                <th>Episode Count</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {shows.map(node => (
+                <tr key={node.podcastTitle}>
+                  <td>
+                    <Link to={`/shows/${node.slug}`}>{node.podcastTitle}</Link>
+                  </td>
+                  <td>{node.lastEpisodeDate.toLocaleDateString()}</td>
+                  <td>{node.episodeCount}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
     </Layout>
   )
 }

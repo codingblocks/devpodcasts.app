@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'gatsby'
 import {
   Collapse,
   Navbar,
@@ -26,14 +25,25 @@ export default class ReactNavbar extends React.Component {
       collapsed: !this.state.collapsed
     })
   }
+
+  search () {
+    const searchTerm = this.refs.searchInput.value
+    if (searchTerm.length) {
+      // location.href to qit, for now
+      window.location.href = `https://qit.cloud/search/"${encodeURI(
+        searchTerm
+      )}"`
+    }
+  }
+
   render () {
     return (
       <div>
-        <Navbar dark fixed='top' onClick={this.toggleNavbar}>
-          <NavbarBrand to='/'>
+        <Navbar dark fixed='top'>
+          <NavbarBrand to='/' href='/'>
             <p className='home-title'>Dev Podcasts</p>
           </NavbarBrand>
-          <NavbarToggler />
+          <NavbarToggler onClick={this.toggleNavbar} />
           <Collapse isOpen={!this.state.collapsed} navbar>
             <Nav navbar>
               <NavItem>
@@ -42,10 +52,14 @@ export default class ReactNavbar extends React.Component {
                     className='form-control py-2'
                     placeholder='search for something'
                     type='search'
-                    id='example-search-input'
+                    ref='searchInput'
                   />
                   <span className='input-group-append'>
-                    <button className='btn btn-outline-secondary' type='button'>
+                    <button
+                      className='btn btn-outline-secondary'
+                      type='button'
+                      onClick={this.search.bind(this)}
+                    >
                       <i className='fa fa-search' />
                     </button>
                   </span>
@@ -59,14 +73,6 @@ export default class ReactNavbar extends React.Component {
               <NavItem>
                 <NavLink href='/latest'>
                   <Button block>Latest</Button>
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  href='https://github.com/codingblocks/podcast-app'
-                  target='_blank'
-                >
-                  <Button block>Github Repository</Button>
                 </NavLink>
               </NavItem>
             </Nav>

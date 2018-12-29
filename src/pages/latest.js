@@ -51,47 +51,49 @@ export default ({ data }) => {
   return (
     <Layout>
       <section className='section clearfix'>
-        <p>
-          Programming Podcasts are a great way to stay educated and inspired.
-        </p>
-        <p>
-          Some shows focus on the latest and greatest programming trends, and
-          others focus on fundamentals and soft skills. Let us help you find the
-          right episode for you.
-        </p>
-        <p>
-          <Link to='/shows/'>Browse by show</Link>
-        </p>
-        <p>
-          <Link to={dateSlug}>Browse by week</Link>
-        </p>
+        <div class='container'>
+          <p>
+            Programming Podcasts are a great way to stay educated and inspired.
+          </p>
+          <p>
+            Some shows focus on the latest and greatest programming trends, and
+            others focus on fundamentals and soft skills. Let us help you find
+            the right episode for you.
+          </p>
+          <p>
+            <Link to='/shows/'>Browse by show</Link>
+          </p>
+          <p>
+            <Link to={dateSlug}>Browse by week</Link>
+          </p>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Episode Name</th>
-              <th>Podcast Show</th>
-              <th>Tags</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {recentEpisodes.map(e => (
-              <tr key={e.id}>
-                <td>
-                  <a href={e.audioUrl} title={`Listen to ${e.episodeTitle}`}>
-                    {e.episodeTitle}
-                  </a>
-                </td>
-                <td>
-                  <Link to={`/shows/${e.slug}`}>{e.podcastTitle}</Link>
-                </td>
-                <td>{e.tags.join(', ')}</td>
-                <td>{e.published.toLocaleDateString()}</td>
+          <table>
+            <thead>
+              <tr>
+                <th>Episode Name</th>
+                <th>Podcast Show</th>
+                <th>Tags</th>
+                <th>Date</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {recentEpisodes.map(e => (
+                <tr key={e.id}>
+                  <td>
+                    <a href={e.audioUrl} title={`Listen to ${e.episodeTitle}`}>
+                      {e.episodeTitle}
+                    </a>
+                  </td>
+                  <td>
+                    <Link to={`/shows/${e.slug}`}>{e.podcastTitle}</Link>
+                  </td>
+                  <td>{e.tags.join(', ')}</td>
+                  <td>{e.published.toLocaleDateString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </section>
     </Layout>
   )

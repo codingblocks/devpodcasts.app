@@ -40,43 +40,51 @@ export default ({ data, pageContext }) => {
 
   return (
     <Layout>
-      <div>
-        <p>
-          {episodes.length} podcasts released between{' '}
-          {startDate.toLocaleDateString()} and {endDate.toLocaleDateString()}
-        </p>
-      </div>
-      <Chart episodes={episodes} />
-      <table>
-        <thead>
-          <tr>
-            <th>Episode Name</th>
-            <th>Podcast Show</th>
-            <th>Tags</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {episodes.map(e => (
-            <tr key={e.audioUrl}>
-              <td>
-                <a href={e.audioUrl} title={`Listen to e.${e.podcastTitle}`}>
-                  {e.episodeTitle}
-                </a>
-              </td>
-              <td>
-                <Link to={`/shows/${e.slug}`}>{e.podcastTitle}</Link>
-              </td>
-              <td>{e.tags.join(', ')}</td>
-              <td>{e.published.toLocaleDateString()}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <section class='section'>
+        <div class='container'>
+          <div>
+            <p>
+              {episodes.length} podcasts released between{' '}
+              {startDate.toLocaleDateString()} and{' '}
+              {endDate.toLocaleDateString()}
+            </p>
+          </div>
+          <Chart episodes={episodes} />
+          <table>
+            <thead>
+              <tr>
+                <th>Episode Name</th>
+                <th>Podcast Show</th>
+                <th>Tags</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {episodes.map(e => (
+                <tr key={e.audioUrl}>
+                  <td>
+                    <a
+                      href={e.audioUrl}
+                      title={`Listen to e.${e.podcastTitle}`}
+                    >
+                      {e.episodeTitle}
+                    </a>
+                  </td>
+                  <td>
+                    <Link to={`/shows/${e.slug}`}>{e.podcastTitle}</Link>
+                  </td>
+                  <td>{e.tags.join(', ')}</td>
+                  <td>{e.published.toLocaleDateString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
-      <Link to={previousSlug} hidden={hidePreviousLink}>
-        Previous week
-      </Link>
+          <Link to={previousSlug} hidden={hidePreviousLink}>
+            Previous week
+          </Link>
+        </div>
+      </section>
     </Layout>
   )
 }

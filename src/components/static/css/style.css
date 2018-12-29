@@ -530,6 +530,7 @@ section.featured.inner {
 #contact-form input[type=submit]:hover, #contact-form input[type=submit]:active {
 	background: #43413e !important;
 }
+
 #contact-form textarea {
 	padding-top: 1em;
 }
@@ -681,7 +682,7 @@ section#footer .copyright {
 .navbar .home-title {
   margin: 0;
   padding: 0;
-  color: inherit;
+  color: #777;
 }
 
 .nav-search {
@@ -697,4 +698,38 @@ section#footer .copyright {
 .navbar-toggler-icon {
   width: 1em;
   height: 1em;
+}
+
+.tag-list {
+  list-style: none;
+  padding: 0px;
+}
+
+.tag {
+  color: #39739d;
+  background-color: #E1ECF4;
+  border-color: #E1ECF4;
+  display: inline;
+  font-size: 18px;
+  position: relative;
+  display: inline-block;
+  padding: 1em 1em;
+  margin: 4px 4px 4px 4px;
+  font-size: 14px;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  text-align: center;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+  transition: all .15s ease-in-out;
+}
+
+.tag :hover {
+  color: hotpink;
+}
+
+.tag a {
+  color: #39739d;
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
-// import Chart from '../components/releaseChart'
+import Chart from '../components/tagChart'
 
 export const query = graphql`
   query {
@@ -50,13 +50,57 @@ export default ({ data }) => {
       <section className='section clearfix'>
         <div className='container'>
           <h2>Tags</h2>
-          <p>Text here about how we figured out the tags</p>
-          <ul>
+          <p>
+            Tags are like pre-computed search terms that aim to figure out what
+            podcast episodes are about. Aside from a few synonyms there isn't
+            any magic going on as you can probably see from the results below.
+          </p>
+          <p>
+            However, there is a lot of room for improvement and there are a
+            couple of changes on the horizon:
+          </p>
+          <h3>How can we fix this?</h3>
+          <p>
+            1. The actual tags aren't so great right now, for example an astute
+            observer would notice the tags "ai" and "artificial intelligence"
+            are both in the list. Worse, "ai" has a suspiciously high count
+            because there are some low value matches being returned from other
+            words that contain the letters "ai". This is easy to fix as I have
+            both a white list and black list of terms that I can use to tweak
+            the tags.
+          </p>
+          <p>
+            2. Tags really ought to have a hierarchy. For example, if an episode
+            is about React, then it is also about JavaScript. Same with
+            Kubernetes and DevOps.
+          </p>
+          <p>
+            3. There are a lot of "none" results. This is a combination of weak
+            episode descriptions and topics that are hard to classify by search.
+            Examples include things like "soft skills" or "career management". I
+            think we'll need a bit of a human touch to handle these items.
+          </p>
+          <Chart tags={sorted} />
+          <h3>All Tags</h3>
+          <p>
+            Note: Because of some caching there may be a small discrepancy
+            between the number you see below, and the count you see after
+            clicking. The number over on <a href='https://qit.cloud'>QIT</a> is
+            closer to real-time.
+          </p>
+          <ul className='tag-list'>
             {sorted.map(tagCount => (
-              <tr key={tagCount.tag}>
-                <td>{tagCount.tag}</td>
-                <td>{tagCount.count}</td>
-              </tr>
+              <li key={tagCount.tag} className='tag'>
+                {/* TODO Actually search via tag, which also fixes the "none" */}
+                <a
+                  href={`https://qit.cloud/search/"${tagCount.tag.replace(
+                    `-`,
+                    ' '
+                  )}"`}
+                >
+                  {tagCount.tag} x {tagCount.count}
+                </a>
+              </li>
             ))}
           </ul>
         </div>
