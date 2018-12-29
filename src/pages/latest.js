@@ -1,9 +1,6 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
 import Layout from '../components/layout'
-// import Chart from '../components/releaseChart'
-import Hero from '../components/hero'
-import QitOverview from '../components/qitOverview'
 
 export const query = graphql`
   query {
@@ -53,18 +50,22 @@ export default ({ data }) => {
 
   return (
     <Layout>
-      <Hero />
-      <QitOverview />
       <section className='section clearfix'>
-        <div className='container'>
+        <div class='container'>
+          <p>
+            Programming Podcasts are a great way to stay educated and inspired.
+          </p>
+          <p>
+            Some shows focus on the latest and greatest programming trends, and
+            others focus on fundamentals and soft skills. Let us help you find
+            the right episode for you.
+          </p>
           <p>
             <Link to='/shows/'>Browse by show</Link>
           </p>
           <p>
             <Link to={dateSlug}>Browse by week</Link>
           </p>
-
-          {/* <Chart episodes={episodes} /> */}
 
           <table>
             <thead>

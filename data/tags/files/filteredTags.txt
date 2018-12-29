@@ -262,7 +262,6 @@ gatsby
 visbug
 quantum
 agile
-ai
 serveless
 kafka
 istio
