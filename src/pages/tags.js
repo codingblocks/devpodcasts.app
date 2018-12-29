@@ -37,6 +37,14 @@ export default ({ data }) => {
     })
   })
 
+  const sorted = Object.keys(tags)
+    .map(t => {
+      return { tag: t, count: tags[t] }
+    })
+    .sort((a, b) => {
+      return b.count - a.count
+    })
+
   return (
     <Layout>
       <section className='section clearfix'>
@@ -44,10 +52,10 @@ export default ({ data }) => {
           <h2>Tags</h2>
           <p>Text here about how we figured out the tags</p>
           <ul>
-            {Object.keys(tags).map(key => (
-              <tr key={key}>
-                <td>{key}</td>
-                <td>{tags[key]}</td>
+            {sorted.map(tagCount => (
+              <tr key={tagCount.tag}>
+                <td>{tagCount.tag}</td>
+                <td>{tagCount.count}</td>
               </tr>
             ))}
           </ul>

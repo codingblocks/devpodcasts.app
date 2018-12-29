@@ -52,12 +52,12 @@ export default class ReactNavbar extends React.Component {
                 </div>
               </NavItem>
               <NavItem>
-                <NavLink to='/tags'>
+                <NavLink href='/tags'>
                   <Button block>Tags</Button>
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to='/latest'>
+                <NavLink href='/latest'>
                   <Button block>Latest</Button>
                 </NavLink>
               </NavItem>
