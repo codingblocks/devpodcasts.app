@@ -5,7 +5,13 @@ class Chart extends Component {
   constructor (props) {
     super(props)
     const limit = props.limit || 10
-    const limitedTags = props.tags.slice(0, limit)
+    const showLegend = props.showLegend || false
+    const showNull = props.showNull || false
+    const filteredTags = showNull
+      ? props.tags
+      : props.tags.filter(t => t.tag !== 'none')
+
+    const limitedTags = filteredTags.slice(0, limit)
     const backgroundColors = [
       '#e6194b',
       '#3cb44b',
@@ -30,6 +36,7 @@ class Chart extends Component {
       '#ffffff',
       '#000000'
     ].slice(0, limit)
+
     this.state = {
       data: {
         labels: limitedTags.map(t => {
@@ -46,19 +53,30 @@ class Chart extends Component {
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         title: {
-          display: true,
-          text: 'Episodes by tag'
+          display: false
         },
         legend: {
-          display: false
+          display: showLegend,
+          position: 'top',
+          fullWidth: false,
+          onClick: (e, key) => {
+            window.location.href = `https://qit.cloud/search/"${window.encodeURI(
+              key.text.replace('-', ' ')
+            )}"`
+          }
         }
       }
     }
   }
 
   render () {
-    return <Doughnut data={this.state.data} options={this.state.options} />
+    return (
+      <div className='tag-chart-container'>
+        <Doughnut data={this.state.data} options={this.state.options} />
+      </div>
+    )
   }
 }
 

@@ -5,7 +5,7 @@ export default () => {
   return (
     <div className='sponsor text-center'>
       <a href='https://www.codingblocks.net'>
-        <img className='sponsor-image' src={Source} />
+        <img className='sponsor-image' src={Source} alt='Coding Blocks logo' />
       </a>
       <br />
       <br />

@@ -55,8 +55,16 @@ small {
 	font-weight: 100;
 }
 
-a {
+.container a {
     color: hotpink;
+}
+
+.discovery-list a {
+  color: hotpink;
+}
+
+.footer a {
+  color: hotpink;
 }
 
 a:hover {
@@ -773,4 +781,8 @@ section#footer .copyright {
 .slick-dots li.slick-active button:before {
   color: white;
   opacity:1;
+}
+
+.tag-chart-container {
+  height: 400px;
 }

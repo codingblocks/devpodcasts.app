@@ -21,7 +21,7 @@ export default ({ data, pageContext }) => {
       seenEpisodes[e.audioUrl] = true
       e.published = new Date(e.published)
       e.slug = n.node.slug
-      if (e.published >= startDate && e.published <= e.published) {
+      if (e.published >= startDate && e.published <= endDate) {
         episodes.push(e)
       }
     })

@@ -53,14 +53,20 @@ export default ({ data }) => {
     <Layout>
       <Hero />
       <Overview />
-      <TagChart tags={sorted} />
-      <section class='section'>
-        <div class='container'>
-          <h2>Tagging</h2>
+      <section className='section'>
+        <div className='container'>
+          <div className='section-header'>
+            <h2>Tagging</h2>
+          </div>
           <p>
             We're still working on getting tagging right, but you can read all
             about it and see all of the tags on the <Link to='/tags'>tags</Link>{' '}
             page.
+          </p>
+          <TagChart tags={sorted} showLegend />
+          <p>
+            Want to know more? Check out this page about how{' '}
+            <Link to='/qit'>QIT</Link> works.
           </p>
         </div>
       </section>

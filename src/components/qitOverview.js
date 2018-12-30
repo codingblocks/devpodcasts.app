@@ -23,7 +23,7 @@ const Overview = () => (
           href='https://qit.cloud/search/graphql'
           title='Listen to episodes about GrpahQL'
         >
-          <img src={phoneImage} />
+          <img src={phoneImage} alt='QIT search for GraphQL' />
         </a>
       </div>
     </div>
