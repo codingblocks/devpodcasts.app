@@ -319,14 +319,6 @@ section.section {
 	font-weight: 700;
 }
 
-#sponsors {
-  background-color: black;
-  width: 100%;
-  background-size: cover;
-  background-attachment: fixed
-}
-
-
 /*===========================
   --- Intro ----
 =========================== */
@@ -466,13 +458,30 @@ section.featured.inner {
 /*===========================
   --- sponsor ----
 =========================== */
+
+.sponsors {
+	background-color: black;
+	background: url(../img/zany-jadraque-571205-unsplash.png) top center;
+  width: 100%;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
 .sponsor {
 	color: #909090;
+	text-align: center;
+	display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .sponsor h3 {
   color: white;
   font-weight: bold;
+}
+
+img.sponsor-image {
+	display: inline;
 }
 
 /*===========================
@@ -732,4 +741,8 @@ section#footer .copyright {
 
 .tag a {
   color: #39739d;
+}
+
+.image-break {
+	width: 100%;
 }

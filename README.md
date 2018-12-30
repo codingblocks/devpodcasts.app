@@ -9,10 +9,11 @@ Publishing:
 ```gatsby build```
 
 Near term TODO:
-* Code clean-up
-* Testing
-* Design
+* Sponsor section
+* Delete dupe static files
+* Better mobile experience
+* Integrated search page
+* Top page
 * Breaking up the plugins
 * Image resizing
 * RSS feeds
-* QIT integration

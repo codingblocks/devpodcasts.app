@@ -1,8 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
-import { StaticQuery, graphql, withPrefix } from 'gatsby'
+import { StaticQuery, graphql } from 'gatsby'
 import Navbar from './navbar'
+import Sponsors from '../components/sponsors'
+import Footer from './footer'
 import 'bootstrap/dist/css/bootstrap.css'
 import './static/css/flexslider.css'
 import './static/css/style.css'
@@ -30,13 +32,11 @@ const Layout = ({ children }) => (
             },
             { name: 'keywords', content: 'programming, podcasts' }
           ]}
-        >
-          {/* <link rel='stylesheet' href={withPrefix('./css/bootstrap.css')} />
-          <link rel='stylesheet' href={withPrefix('./css/flexslider.css')} />
-          <link rel='stylesheet' href={withPrefix('./css/style.css')} /> */}
-        </Helmet>
+        />
         <Navbar />
         {children}
+        <Sponsors />
+        <Footer />
       </>
     )}
   />
