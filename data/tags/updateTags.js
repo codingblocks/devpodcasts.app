@@ -60,11 +60,6 @@ const updateEpisodes = async () => {
               // console.log(e.tags)
             })
             if (episodes.length) {
-              if (t === 'docker') {
-                console.log(
-                  episodes.map(e => e.episodeTitle + ' ' + e.tags.join(','))
-                )
-              }
               // TODO should only update an episode once
               client.updateDocuments(index, episodes, function (err, results) {
                 // optional error, or confirmation of each document being added
