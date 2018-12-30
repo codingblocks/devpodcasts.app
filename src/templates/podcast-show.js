@@ -1,38 +1,44 @@
 import React from 'react'
-import { Link } from 'gatsby'
 import Layout from '../components/layout'
 
 export default ({ pageContext }) => {
   const feed = pageContext.feed.data
+
   return (
     <Layout>
       <section class='section'>
         <div class='container'>
           <div>
-            <img
-              src={feed.image}
-              alt={feed.description.short}
-              className='img-fluid show-image'
-            />
-            <div className='show-details'>
-              <p>
-                <a href={feed.link}>{feed.title}</a>
-              </p>
-              <p>
-                Last Episode:{' '}
-                {new Date(pageContext.lastEpisodeDate).toLocaleDateString()}
-              </p>
-              <p>{feed.episodes.length} Episodes</p>
+            <div className='section-header'>
+              <h2>{feed.title}</h2>
+            </div>
+            <div class='text-center'>
+              <img
+                src={feed.image}
+                alt={feed.description.short}
+                className='img-fluid show-image center'
+              />
+
+              <div className='show-details'>
+                <p class='smaller'>
+                  Last Episode:{' '}
+                  {new Date(pageContext.lastEpisodeDate).toLocaleDateString()}
+                  <br />
+                  {feed.episodes.length} episodes in RSS feed:{' '}
+                  <a href={feed.link}>{feed.link}</a>
+                </p>
+              </div>
             </div>
           </div>
+          <h4 class='show-description-title'>Show Description</h4>
           <p>{feed.description.long}</p>
           <div className='table-responsive'>
             <table className='table'>
-              <caption>Episodes</caption>
-              <thead class='thead-dark'>
+              <caption>Episode listing for {feed.title}</caption>
+              <thead className='thead-dark'>
                 <tr>
-                  <th>Episode</th>
-                  <th>Date</th>
+                  <th scope='col'>Episode</th>
+                  <th scope='col'>Date</th>
                 </tr>
               </thead>
               <tbody>

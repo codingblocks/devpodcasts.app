@@ -83,7 +83,7 @@ export default ({ data }) => {
           <div className='table-responsive'>
             <table className='table'>
               <caption>Latest episodes</caption>
-              <thead class='thead-dark'>
+              <thead className='thead-dark'>
                 <tr>
                   <th scope='col'>Episode Name</th>
                   <th scope='col'>Podcast Show</th>

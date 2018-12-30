@@ -75,6 +75,11 @@ export default class ReactNavbar extends React.Component {
                   <Button block>Latest</Button>
                 </NavLink>
               </NavItem>
+              <NavItem>
+                <NavLink href='/shows'>
+                  <Button block>Shows</Button>
+                </NavLink>
+              </NavItem>
             </Nav>
           </Collapse>
         </Navbar>

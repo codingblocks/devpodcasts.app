@@ -68,7 +68,7 @@ export default ({ data, pageContext }) => {
                 {startDate.toLocaleDateString()} and{' '}
                 {endDate.toLocaleDateString()}
               </caption>
-              <thead class='thead-dark'>
+              <thead className='thead-dark'>
                 <tr>
                   <th scope='col'>Episode Name</th>
                   <th scope='col'>Podcast Show</th>

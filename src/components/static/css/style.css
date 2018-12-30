@@ -796,6 +796,7 @@ table.table {
   width: 100%;
 }
 .table-responsive {
+  margin-top: 40px;
   max-height: 600px;
   width: 100%;
 }
@@ -804,4 +805,9 @@ table.table {
 }
 .show-image {
   max-width: 200px;
+}
+
+.show-description-title {
+  margin-top: 30px;
+  margin-bottom: 0px;
 }

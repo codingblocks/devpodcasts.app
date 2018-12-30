@@ -39,11 +39,15 @@ export default ({ data }) => {
           <div className='table-responsive'>
             <table className='table'>
               <caption>Podcast show listing</caption>
-              <thead class='thead-dark'>
+              <thead className='thead-dark'>
                 <tr>
                   <th scope='col'>Show</th>
-                  <th scope='col'>Last Episode</th>
-                  <th scope='col'>Episode Count</th>
+                  <th scope='col' nowrap='true'>
+                    Last Episode
+                  </th>
+                  <th scope='col' nowrap='true'>
+                    Episode Count
+                  </th>
                 </tr>
               </thead>
               <tbody>
