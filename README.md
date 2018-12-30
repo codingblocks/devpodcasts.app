@@ -9,11 +9,11 @@ Publishing:
 ```gatsby build```
 
 Near term TODO:
-* Sponsor section
 * Delete dupe static files
-* Better mobile experience
+* Better mobile experience (tables)
 * Integrated search page
-* Top page
+* "Top" page
 * Breaking up the plugins
 * Image resizing
 * RSS feeds
+* Blo

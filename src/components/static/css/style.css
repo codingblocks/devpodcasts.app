@@ -628,7 +628,8 @@ div.cform-response-output {
 
 section#footer {
 	background-color:black;
-	color: #fff;
+  color: #fff;
+  border-top: 1px solid #222;
 }
 
 section#footer .copyright {
@@ -745,4 +746,31 @@ section#footer .copyright {
 
 .image-break {
 	width: 100%;
+}
+
+/* Carousel */
+
+.slick-prev {
+  left: 0;
+}
+
+.slick-next {
+  right: 0;
+}
+
+.slick-prev, .slick-next, .slick-prev:hover, .slick-prev:focus, .slick-next:hover, .slick-next:focus {
+    opacity: .2;
+}
+
+.slick-dots {
+  height: 50px;
+}
+
+.slick-dots li button:before {
+  color: gray;
+}
+
+.slick-dots li.slick-active button:before {
+  color: white;
+  opacity:1;
 }

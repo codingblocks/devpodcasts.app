@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'gatsby'
 
 export default () => {
   return (
@@ -9,8 +10,8 @@ export default () => {
         login, and there are no ads like this one to get in your way.
       </p>
       <p>
-        Give <a href='https://qit.cloud'>QIT</a> a shot and let us know what you
-        think!
+        Read more about how <Link to='/qit'>QIT</Link> works, it's pretty cool
+        if we do say so ourselves!
       </p>
     </div>
   )
