@@ -36,26 +36,33 @@ export default ({ data }) => {
             that's roughly <em>{meta.estimatedHours} hours</em> worth of
             content.
           </p>
-          <table>
-            <thead>
-              <tr>
-                <th>Show</th>
-                <th>Last Episode</th>
-                <th>Episode Count</th>
-              </tr>
-            </thead>
-            <tbody>
-              {shows.map(node => (
-                <tr key={node.podcastTitle}>
-                  <td>
-                    <Link to={`/shows/${node.slug}`}>{node.podcastTitle}</Link>
-                  </td>
-                  <td>{node.lastEpisodeDate.toLocaleDateString()}</td>
-                  <td>{node.episodeCount}</td>
+          <div className='table-responsive'>
+            <table className='table'>
+              <caption>Podcast show listing</caption>
+              <thead class='thead-dark'>
+                <tr>
+                  <th scope='col'>Show</th>
+                  <th scope='col'>Last Episode</th>
+                  <th scope='col'>Episode Count</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {shows.map(node => (
+                  <tr nowrap='true' key={node.podcastTitle}>
+                    <td>
+                      <Link to={`/shows/${node.slug}`}>
+                        {node.podcastTitle}
+                      </Link>
+                    </td>
+                    <td nowrap='true'>
+                      {node.lastEpisodeDate.toLocaleDateString()}
+                    </td>
+                    <td nowrap='true'>{node.episodeCount}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
     </Layout>

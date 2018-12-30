@@ -786,3 +786,18 @@ section#footer .copyright {
 .tag-chart-container {
   height: 400px;
 }
+
+table.table {
+  max-height: 600px;
+  width: 100%;
+}
+.table-responsive {
+  max-height: 600px;
+  width: 100%;
+}
+.table td {
+  vertical-align: middle;
+}
+.show-image {
+  max-width: 200px;
+}

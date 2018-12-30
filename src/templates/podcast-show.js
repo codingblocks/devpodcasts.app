@@ -12,7 +12,7 @@ export default ({ pageContext }) => {
             <img
               src={feed.image}
               alt={feed.description.short}
-              className='img-fluid'
+              className='img-fluid show-image'
             />
             <div className='show-details'>
               <p>
@@ -26,25 +26,29 @@ export default ({ pageContext }) => {
             </div>
           </div>
           <p>{feed.description.long}</p>
-          <table>
-            <thead>
-              <tr>
-                <th>Episode</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {feed.episodes.slice(0, 10).map(e => (
-                <tr key={e.enclosure.url}>
-                  <td>
-                    <a href={e.enclosure.url}>{e.title}</a>
-                  </td>
-                  <td>{new Date(e.published).toLocaleDateString()}</td>
+          <div className='table-responsive'>
+            <table className='table'>
+              <caption>Episodes</caption>
+              <thead class='thead-dark'>
+                <tr>
+                  <th>Episode</th>
+                  <th>Date</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          <Link to='/'>back</Link>
+              </thead>
+              <tbody>
+                {feed.episodes.slice(0, 10).map(e => (
+                  <tr key={e.enclosure.url}>
+                    <td nowrap='true'>
+                      <a href={e.enclosure.url}>{e.title}</a>
+                    </td>
+                    <td nowrap='true'>
+                      {new Date(e.published).toLocaleDateString()}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
     </Layout>

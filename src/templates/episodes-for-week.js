@@ -37,6 +37,17 @@ export default ({ data, pageContext }) => {
     previousStart
   )}-${formatDate(previousEnd)}/`
   const hidePreviousLink = previousStart < earliestDate
+  episodes.forEach(e => {
+    e.tagLinks = e.tags
+      .map(
+        t =>
+          `<a class='tag small' href='https://qit.cloud/search/"${t.replace(
+            `-`,
+            ' '
+          )}"'>${t}</a>`
+      )
+      .join(' ')
+  })
 
   return (
     <Layout>
@@ -50,36 +61,45 @@ export default ({ data, pageContext }) => {
             </p>
           </div>
           <Chart episodes={episodes} />
-          <table>
-            <thead>
-              <tr>
-                <th>Episode Name</th>
-                <th>Podcast Show</th>
-                <th>Tags</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {episodes.map(e => (
-                <tr key={e.audioUrl}>
-                  <td>
-                    <a
-                      href={e.audioUrl}
-                      title={`Listen to e.${e.podcastTitle}`}
-                    >
-                      {e.episodeTitle}
-                    </a>
-                  </td>
-                  <td>
-                    <Link to={`/shows/${e.slug}`}>{e.podcastTitle}</Link>
-                  </td>
-                  <td>{e.tags.join(', ')}</td>
-                  <td>{e.published.toLocaleDateString()}</td>
+          <div className='table-responsive'>
+            <table className='table'>
+              <caption>
+                {episodes.length} podcasts released between{' '}
+                {startDate.toLocaleDateString()} and{' '}
+                {endDate.toLocaleDateString()}
+              </caption>
+              <thead class='thead-dark'>
+                <tr>
+                  <th scope='col'>Episode Name</th>
+                  <th scope='col'>Podcast Show</th>
+                  <th scope='col'>Tags</th>
+                  <th scope='col'>Date</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-
+              </thead>
+              <tbody>
+                {episodes.map(e => (
+                  <tr key={e.audioUrl}>
+                    <td nowrap='true'>
+                      <a
+                        href={e.audioUrl}
+                        title={`Listen to e.${e.podcastTitle}`}
+                      >
+                        {e.episodeTitle}
+                      </a>
+                    </td>
+                    <td nowrap='true'>
+                      <Link to={`/shows/${e.slug}`}>{e.podcastTitle}</Link>
+                    </td>
+                    <td
+                      nowrap='true'
+                      dangerouslySetInnerHTML={{ __html: e.tagLinks }}
+                    />
+                    <td nowrap='true'>{e.published.toLocaleDateString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           <Link to={previousSlug} hidden={hidePreviousLink}>
             Previous week
           </Link>
