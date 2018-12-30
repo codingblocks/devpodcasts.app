@@ -783,6 +783,10 @@ section#footer .copyright {
   opacity:1;
 }
 
+.slick-slide img {
+  display: inline;
+}
+
 .tag-chart-container {
   height: 400px;
 }
