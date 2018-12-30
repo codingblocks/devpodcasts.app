@@ -5,7 +5,7 @@ import { StaticQuery, graphql } from 'gatsby'
 import Navbar from './navbar'
 import Sponsors from '../components/sponsors'
 import Footer from './footer'
-import 'bootstrap/dist/css/bootstrap.css'
+import './static/css/bootstrap.css'
 import './static/css/flexslider.css'
 import './static/css/style.css'
 
