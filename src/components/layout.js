@@ -1,4 +1,3 @@
-import 'bootstrap/dist/css/bootstrap.css'
 import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
@@ -6,7 +5,6 @@ import { StaticQuery, graphql } from 'gatsby'
 import Navbar from './navbar'
 import Sponsors from '../components/sponsors'
 import Footer from './footer'
-import './static/css/flexslider.css'
 import './static/css/style.css'
 
 const Layout = ({ children }) => (
