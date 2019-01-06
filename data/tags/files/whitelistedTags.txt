@@ -9,3 +9,5 @@ kafka
 istio
 npm
 rapidapi
+polymer
+devops

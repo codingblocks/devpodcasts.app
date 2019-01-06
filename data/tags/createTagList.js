@@ -18,7 +18,7 @@ const requestDelay = process.env.TAG_FILTER_REQUEST_DELAY || 1000
 
 // read in the files
 const whitelist = fs
-  .readFileSync(`files/blacklistedTags.txt`, 'utf-8')
+  .readFileSync(`files/whitelistedTags.txt`, 'utf-8')
   .split(require('os').EOL)
   .map(t => t.split(`,`)[0])
 
@@ -66,7 +66,7 @@ const getFilteredTerms = async () => {
 }
 getFilteredTerms().then(filteredTerms => {
   const sorted = filteredTerms.sort((a, b) => b.count - a.count)
-  console.log(`Keeping ${sorted.length} out of ${sorted.length}`)
+  console.log(`Keeping ${sorted.length} out of ${unvettedTerms.length}`)
   fs.writeFileSync(
     `files/filteredTags.txt`,
     sorted.map(t => `${t.term},${t.count}`).join(require('os').EOL)

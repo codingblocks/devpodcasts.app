@@ -1,6 +1,7 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
 import Layout from '../components/layout'
+import TagChart from '../components/tagChart'
 
 export const query = graphql`
   query {
@@ -60,6 +61,29 @@ export default ({ data }) => {
       .join(' ')
   })
 
+  const tags = {}
+  recentEpisodes.forEach(e => {
+    if (!e.tags.length) {
+      tags.none = tags.none + 1
+    } else {
+      e.tags.forEach(t => {
+        if (!tags[t]) {
+          tags[t] = 1
+        } else {
+          tags[t] = tags[t] + 1
+        }
+      })
+    }
+  })
+
+  const sortedTags = Object.keys(tags)
+    .map(t => {
+      return { tag: t, count: tags[t] }
+    })
+    .sort((a, b) => {
+      return b.count - a.count
+    })
+
   return (
     <Layout>
       <section className='section clearfix'>
@@ -72,9 +96,7 @@ export default ({ data }) => {
             others focus on fundamentals and soft skills. Let us help you find
             the right episode for you.
           </p>
-          <p>
-            <Link to='/shows/'>Browse by show</Link>
-          </p>
+          <TagChart tags={sortedTags} showLegend showNull />
           <p>
             <Link to={dateSlug}>Browse by week</Link>
           </p>
