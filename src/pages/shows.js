@@ -4,7 +4,7 @@ import Layout from '../components/layout'
 
 export const query = graphql`
   query {
-    allPodcastShow(sort: { fields: [episodeCount], order: DESC }) {
+    allPodcastShow(sort: { fields: [lastEpisodeDate], order: DESC }) {
       edges {
         node {
           episodeCount
