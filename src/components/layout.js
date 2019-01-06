@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
-import { StaticQuery, graphql } from 'gatsby'
+import { StaticQuery, graphql, withPrefix } from 'gatsby'
 import Navbar from './navbar'
 import Sponsors from '../components/sponsors'
 import Footer from './footer'
-import './static/css/style.css'
+import 'bootstrap/dist/css/bootstrap.css'
+// import './static/css/style.css' UGH, WHY IS THIS NOT GETTING INCLUDED AFTER BOOTSTRAP IN PROD!?!!?
 
 const Layout = ({ children }) => (
   <StaticQuery
@@ -30,7 +31,13 @@ const Layout = ({ children }) => (
             },
             { name: 'keywords', content: 'programming, podcasts' }
           ]}
-        />
+        >
+          <link
+            href={withPrefix('./css/style.css')}
+            rel='stylesheet'
+            type='text/css'
+          />
+        </Helmet>
         <Navbar />
         {children}
         <Sponsors />
