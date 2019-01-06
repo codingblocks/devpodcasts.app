@@ -63,7 +63,8 @@ export default ({ data }) => {
             about it and see all of the tags on the <Link to='/tags'>tags</Link>{' '}
             page.
           </p>
-          <TagChart tags={sorted} showLegend />
+          <p>This chart shows the top 20 tags:</p>
+          <TagChart tags={sorted} showLegend limit='20' />
           <p>
             Want to know more? Check out this page about how{' '}
             <Link to='/qit'>QIT</Link> works.
