@@ -4,7 +4,7 @@ import { Doughnut } from 'react-chartjs-2'
 class Chart extends Component {
   constructor (props) {
     super(props)
-    const limit = props.limit || 10
+    const limit = props.limit || 20
     const showLegend = props.showLegend || false
     const showNull = props.showNull || false
     const filteredTags = showNull

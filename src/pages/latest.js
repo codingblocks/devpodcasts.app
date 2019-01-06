@@ -101,7 +101,7 @@ export default ({ data }) => {
             Tags are a work in progress, read more about them on the{' '}
             <Link to='/tags'>Tags page</Link>.
           </p>
-          <TagChart tags={sortedTags} showLegend showNull />
+          <TagChart tags={sortedTags} showLegend limit='20' />
           <p>
             <Link to={dateSlug}>Browse by week</Link>
           </p>
