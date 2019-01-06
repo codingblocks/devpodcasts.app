@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
 import Layout from '../components/layout'
-import Chart from '../components/releaseChart'
+import TagChart from '../components/tagChart'
 
 export default ({ data, pageContext }) => {
   const startDate = new Date(pageContext.startDate)
@@ -49,6 +49,29 @@ export default ({ data, pageContext }) => {
       .join(' ')
   })
 
+  const tags = {}
+  episodes.forEach(e => {
+    if (!e.tags.length) {
+      tags.none = tags.none + 1
+    } else {
+      e.tags.forEach(t => {
+        if (!tags[t]) {
+          tags[t] = 1
+        } else {
+          tags[t] = tags[t] + 1
+        }
+      })
+    }
+  })
+
+  const sortedTags = Object.keys(tags)
+    .map(t => {
+      return { tag: t, count: tags[t] }
+    })
+    .sort((a, b) => {
+      return b.count - a.count
+    })
+
   return (
     <Layout>
       <section class='section'>
@@ -60,7 +83,12 @@ export default ({ data, pageContext }) => {
               {endDate.toLocaleDateString()}
             </p>
           </div>
-          <Chart episodes={episodes} />
+          <h3>Tags</h3>
+          <p>
+            Tags are a work in progress, read more about them on the{' '}
+            <Link to='/tags'>Tags page</Link>.
+          </p>
+          <TagChart tags={sortedTags} showLegend showNull />
           <div className='table-responsive'>
             <table className='table'>
               <caption>

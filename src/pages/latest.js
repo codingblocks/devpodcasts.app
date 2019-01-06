@@ -96,6 +96,11 @@ export default ({ data }) => {
             others focus on fundamentals and soft skills. Let us help you find
             the right episode for you.
           </p>
+          <h3>Tags</h3>
+          <p>
+            Tags are a work in progress, read more about them on the{' '}
+            <Link to='/tags'>Tags page</Link>.
+          </p>
           <TagChart tags={sortedTags} showLegend showNull />
           <p>
             <Link to={dateSlug}>Browse by week</Link>
