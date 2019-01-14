@@ -93,10 +93,10 @@ export default ({ data }) => {
               <li key={tagCount.tag} className='tag'>
                 {/* TODO Actually search via tag, which also fixes the "none" */}
                 <a
-                  href={`https://qit.cloud/search/"${tagCount.tag.replace(
+                  href={`https://qit.cloud/search/${encodeURIComponent(tagCount.tag.replace(
                     `-`,
                     ' '
-                  )}"`}
+                  ))}`}
                 >
                   {tagCount.tag} x {tagCount.count}
                 </a>

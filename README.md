@@ -5,6 +5,9 @@ Check out a preview here: [http://devpodcasts.app](http://devpodcasts.app)
 Dev:
 ```npm install && gatsby develop```
 
+Then open a browser to:
+http://localhost:8000 
+
 Publishing:
 ```gatsby build```
 
