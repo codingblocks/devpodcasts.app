@@ -4,6 +4,7 @@ import Layout from '../components/layout'
 import Hero from '../components/hero'
 import Overview from '../components/appOverview'
 import TagChart from '../components/tagChart'
+import Search from '../components/search'
 
 export const query = graphql`
   query {
@@ -53,6 +54,7 @@ export default ({ data }) => {
     <Layout>
       <Hero />
       <Overview />
+      <Search />
       <section className='section'>
         <div className='container'>
           <div className='section-header'>
