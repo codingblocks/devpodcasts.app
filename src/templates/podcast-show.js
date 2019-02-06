@@ -6,21 +6,21 @@ export default ({ pageContext }) => {
 
   return (
     <Layout>
-      <section class='section'>
-        <div class='container'>
+      <section class="section">
+        <div class="container">
           <div>
-            <div className='section-header'>
+            <div className="section-header">
               <h2>{feed.title}</h2>
             </div>
-            <div class='text-center'>
+            <div class="text-center">
               <img
                 src={feed.image}
                 alt={feed.description.short}
-                className='img-fluid show-image center'
+                className="img-fluid show-image center"
               />
 
-              <div className='show-details'>
-                <p class='smaller'>
+              <div className="show-details">
+                <p class="smaller">
                   Last Episode:{' '}
                   {new Date(pageContext.lastEpisodeDate).toLocaleDateString()}
                   <br />
@@ -30,28 +30,31 @@ export default ({ pageContext }) => {
               </div>
             </div>
           </div>
-          <h4 class='show-description-title'>Show Description</h4>
+          <h4 class="show-description-title">Show Description</h4>
           <p>{feed.description.long}</p>
-          <div className='table-responsive'>
-            <table className='table'>
+          <div className="table-responsive">
+            <table className="table">
               <caption>Episode listing for {feed.title}</caption>
-              <thead className='thead-dark'>
+              <thead className="thead-dark">
                 <tr>
-                  <th scope='col'>Episode</th>
-                  <th scope='col'>Date</th>
+                  <th scope="col">Episode</th>
+                  <th scope="col">Date</th>
                 </tr>
               </thead>
               <tbody>
-                {feed.episodes.slice(0, 10).map(e => (
-                  <tr key={e.enclosure.url}>
-                    <td nowrap='true'>
-                      <a href={e.enclosure.url}>{e.title}</a>
-                    </td>
-                    <td nowrap='true'>
-                      {new Date(e.published).toLocaleDateString()}
-                    </td>
-                  </tr>
-                ))}
+                {feed.episodes
+                  .slice(0, 20)
+                  .filter(e => e.enclosure && e.published)
+                  .map(e => (
+                    <tr key={e.enclosure.url}>
+                      <td nowrap="true">
+                        <a href={e.enclosure.url}>{e.title}</a>
+                      </td>
+                      <td nowrap="true">
+                        {new Date(e.published).toLocaleDateString()}
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
